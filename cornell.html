@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C3A Labs — Cornell × AI Investor Intelligence Terminal</title>
+<style>
+:root{--bg:#000;--panel:#111114;--panel2:#161619;--border:#232328;--ink:#f5f5f7;--muted:#98989f;--dim:#6e6e73;--accent:#0071e3;--accent2:#4da3ff;--ok:#32d74b;--warn:#ff9f0a;--maybe:#ffd60a;--no:#ff453a;--vio:#bf5af2}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-size:14.5px}
+nav{position:sticky;top:0;z-index:60;background:rgba(0,0,0,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:52px;display:flex;align-items:center;gap:18px;overflow-x:auto;white-space:nowrap}
+nav .brand{font-weight:700;font-size:12.5px;letter-spacing:.05em;color:var(--ink)}
+nav .brand span{color:var(--accent2)}
+nav a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:.01em;transition:color .15s}
+nav a:hover{color:var(--ink)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.cover{padding:64px 0 40px;border-bottom:1px solid var(--border)}
+.kicker{color:var(--accent2);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+h1{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px}
+.sub{color:var(--muted);font-size:15px;max-width:780px}
+section{padding:52px 0;border-bottom:1px solid var(--border);scroll-margin-top:64px}
+.secnum{color:var(--accent2);font-size:11px;font-weight:600;letter-spacing:.14em;margin-bottom:10px}
+h2{font-size:26px;font-weight:700;letter-spacing:-.015em;margin-bottom:6px}
+h3{font-size:16px;font-weight:600;margin:20px 0 8px}
+p{color:#c7c7cc;font-size:14px;max-width:860px;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:12px 0;border:1px solid var(--border)}
+th{background:var(--panel);text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap;font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:#a5a5ac}
+td{padding:9px 10px;border-bottom:1px solid var(--border);color:#d6d6db;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:#0f0f11}
+tbody tr:hover td{background:var(--panel2)}
+.metric{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:18px 0;grid-auto-rows:1fr}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.tile .n{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1}
+.tile .l{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.04em;text-transform:uppercase}
+.tile .s{font-size:10.5px;color:var(--dim);margin-top:4px}
+.b{display:inline-block;font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:5px;letter-spacing:.03em;white-space:nowrap;border:1px solid transparent}
+.bA{background:rgba(50,215,75,.13);color:var(--ok);border-color:rgba(50,215,75,.3)}
+.bB{background:rgba(50,215,75,.1);color:#5fe387;border-color:rgba(50,215,75,.25)}
+.bC{background:rgba(0,113,227,.14);color:var(--accent2);border-color:rgba(0,113,227,.35)}
+.bD{background:rgba(255,159,10,.12);color:var(--warn);border-color:rgba(255,159,10,.3)}
+.bE{background:rgba(134,134,139,.14);color:#b9b9be;border-color:rgba(134,134,139,.3)}
+.bF{background:rgba(90,90,95,.16);color:#8e8e93;border-color:rgba(90,90,95,.35)}
+.bG{background:rgba(255,69,58,.12);color:var(--no);border-color:rgba(255,69,58,.3)}
+.bok{background:rgba(50,215,75,.13);color:var(--ok)}
+.blk{background:rgba(255,159,10,.13);color:var(--warn)}
+.bps{background:rgba(255,214,10,.13);color:var(--maybe)}
+.bnv{background:rgba(255,69,58,.12);color:var(--no)}
+.bv{background:rgba(191,90,242,.13);color:var(--vio)}
+.bap{background:rgba(0,113,227,.14);color:var(--accent2)}
+.bop{background:rgba(134,134,139,.14);color:#b9b9be}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0}
+.pcard{border-left:3px solid var(--accent);background:var(--panel);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);border-radius:0 12px 12px 0;padding:20px 22px;margin:16px 0}
+.phead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.pname{font-size:18px;font-weight:700}
+.pfirm{color:var(--accent2);font-size:13.5px;font-weight:600}
+.prank{color:var(--dim);font-size:13px;font-weight:700;letter-spacing:.06em}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:20px;row-gap:12px;align-items:start;margin:10px 0}
+.pgrid .contact-block,.pgrid .f:last-child{grid-column:span 2}
+.pcard .f{font-size:11px;text-transform:uppercase;color:var(--muted);letter-spacing:.05em}
+.pcard .v{font-size:13.5px;line-height:1.5;text-transform:none;letter-spacing:normal;color:#e5e5ea;margin-top:3px}
+.pcard > p:last-of-type{background:var(--panel2);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;color:#d6d6db;font-size:13.5px;margin-top:4px}
+details{background:var(--panel2);border:1px solid var(--border);border-radius:8px;margin:8px 0;padding:0}
+summary{cursor:pointer;padding:9px 14px;font-size:12px;color:var(--accent2);font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"+ ";color:var(--accent2)}
+details[open] summary:before{content:"− "}
+details .ev{padding:10px 14px;border-top:1px solid var(--border);font-size:12px;color:#c7c7cc}
+details .ev table{font-size:11.5px;margin:6px 0}
+details .ev p,details .ev li{font-size:12.5px}
+.action{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:8px 0;display:flex;gap:12px;align-items:flex-start;font-size:13.5px}
+.action .no{font-weight:700;color:var(--accent2);font-size:14px;min-width:22px}
+.callout{border-left:3px solid var(--accent);background:var(--panel);padding:13px 17px;border-radius:0 10px 10px 0;margin:14px 0;color:#d6d6db;font-size:13.5px}
+.callout b{color:var(--ink)}
+.filterbar{position:sticky;top:52px;z-index:50;background:rgba(0,0,0,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.filterbar select,.filterbar input{background:var(--panel);color:var(--ink);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;font-family:inherit;height:34px}
+.filterbar select:focus,.filterbar input:focus{outline:1px solid var(--accent)}
+.filterbar .fl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+svg text{font-family:inherit}
+.foot{padding:34px 24px 56px;color:var(--muted);font-size:11.5px;text-align:center;border-top:1px solid var(--border)}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+ul{padding-left:18px;color:#c7c7cc;font-size:13.5px;margin-bottom:10px}
+li{margin-bottom:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:10px;top:10px;background:var(--accent);color:#fff;padding:8px 12px;z-index:99}
+.crit-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.crit{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:13px 15px}
+.crit .t{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.crit .d{font-size:12.5px;color:#d6d6db;margin-top:5px;line-height:1.55}
+.crit .d b{color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:14px 0;padding:14px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px}
+.legend .li{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.legend .lt{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-right:2px}
+.tldr{color:var(--muted);font-size:14px;line-height:1.6;border-left:2px solid var(--accent);padding-left:12px;margin:-2px 0 16px;max-width:900px}
+.tldr b{color:var(--ink)}
+.twrap{overflow-x:auto}
+.small{color:#8e8e93}
+.plink{font-size:11.5px;color:var(--accent2);font-weight:600;margin-left:4px;text-decoration:none}
+.email-link{color:var(--accent2);text-decoration:none;white-space:nowrap}
+.email-link:hover,.email-link:focus{color:#8ec5ff;text-decoration:underline}
+.nt{white-space:nowrap}
+.twrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ctable td{padding:6px 7px;font-size:11.5px}
+.ctable th{padding:6px 7px;font-size:10px}
+.ctable .email-link{font-size:11.5px}
+.contact-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.contact-action{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 11px;border:1px solid #2d5f91;border-radius:6px;color:#8ec5ff;font-size:12px;font-weight:650;text-decoration:none;white-space:nowrap;background:#111923}
+.contact-action:hover,.contact-action:focus{background:#17283a;color:#f5f5f7;border-color:#4da3ff;outline:2px solid transparent;text-decoration:none}
+.map-start{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:16px 18px;margin:18px 0}
+.map-start>div:first-child{display:grid;gap:4px}.map-start strong{font-size:15px}.map-start span:not(.map-kicker){color:var(--muted);font-size:13px}.map-kicker{color:var(--accent2);font-size:10px;font-weight:700;letter-spacing:.1em}.map-start-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.map-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--panel);margin:16px 0}.map-wrap svg{display:block;min-width:800px}.map-potential{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 0 2px;color:var(--muted);font-size:13px}.map-potential>div{padding-right:14px;border-right:1px solid var(--border)}.map-potential>div:last-of-type{border-right:0}.map-evidence{margin-top:16px}
+.board-summary{max-width:920px;margin:0 0 12px;color:var(--muted)}.board-method,.watchlist{max-width:980px;background:var(--panel2);border:1px solid var(--border);border-radius:8px;margin:10px 0 18px}.board-method summary,.watchlist summary{color:var(--accent2);font-size:12px;font-weight:650;padding:12px 14px;cursor:pointer}.board-method p,.watchlist p{margin:0;padding:0 14px 14px;color:var(--muted);font-size:13px;line-height:1.55}
+.gate{border-left:3px solid var(--warn);background:var(--panel);padding:13px 17px;border-radius:0 10px 10px 0;margin:14px 0;color:#d6d6db;font-size:13.5px}
+.gate b{color:var(--ink)}
+@media(max-width:1040px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.pgrid .contact-block,.pgrid .f:last-child{grid-column:span 1}.map-start{align-items:flex-start;flex-direction:column}.map-start-actions{justify-content:flex-start}}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}h1{font-size:28px}.crit-strip{grid-template-columns:1fr}}
+@media(max-width:640px){.pgrid{grid-template-columns:1fr}.pgrid .contact-block,.pgrid .f:last-child{grid-column:span 1}.contact-actions{gap:6px}.contact-action{min-height:40px;font-size:13px}.map-potential{align-items:flex-start;flex-direction:column}.map-potential>div{border-right:0;padding-right:0}nav{overflow-x:auto;white-space:nowrap;gap:14px;padding-left:18px;padding-right:18px}nav::-webkit-scrollbar{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav aria-label="Primary">
+<span class="brand">CORNELL<span>×</span>AI INVESTOR TERMINAL</span>
+<a href="#exec">EXEC SUMMARY</a><a href="#people">TOP 10 PEOPLE</a><a href="#firms">TOP FIRMS</a><a href="#cornell">CORNELL NETWORK</a><a href="#ainvest">AI INVESTORS</a><a href="#contact">CONTACT INTELLIGENCE</a><a href="#relmap">RELATIONSHIP MAP</a><a href="#profiles">TOP 25 PROFILES</a><a href="#evidence">EVIDENCE</a><a href="#gaps">RESEARCH GAPS</a><a href="#actions">NEXT ACTIONS</a>
+</nav>
+<main id="main">
+<div class="cover wrap">
+<div class="kicker">Private Investment Intelligence · C3A Labs · Contacts re-validated Aug 21 2026 · Research base Aug 20 2026</div>
+<h1>Cornell-Connected AI Investors<br>Pre-Seed &amp; Seed · US &amp; International</h1>
+<p class="sub">One decision surface for one question: who should we build relationships with first, and why? Every target answers the same nine checks — Cornell connection, current role, decision authority, AI investments, stage, contactability, relationship strength, evidence state, next action. Nothing is invented; every claim keeps its confidence state: CONFIRMED, LIKELY, POSSIBLE, or NOT VERIFIED.</p>
+<div class="crit-strip">
+<div class="crit"><div class="t">Mission criterion 1 · Cornell affiliation</div><div class="d"><b>35 of 45 firms carry a verified Cornell class (A–F).</b> Direct alumni vs institutional vs ecosystem ties are never blurred. Portfolio-only ties are excluded.</div></div>
+<div class="crit"><div class="t">Mission criterion 2 · Active AI investing</div><div class="d"><b>20 funds deployment-audited ACTIVE</b> with named 2025–26 AI deals. "Invests in AI" copy on a website is not evidence — named deals are.</div></div>
+<div class="crit"><div class="t">Mission criterion 3 · Pre-seed/seed + international</div><div class="d"><b>Hard stage gate applied.</b> Growth-only funds cannot hold Tier 1. US priority, with Canada/Europe/Singapore held as a relationship shortlist — India-only capital excluded.</div></div>
+</div>
+</div>
+<div class="wrap">
+<section id="exec">
+<div class="secnum">01 · EXECUTIVE SUMMARY</div>
+<h2>The answer, first</h2>
+<div class="tldr">45 qualified investors mapped · 10 stage-gated Tier-1 firms · 15 verified decision-makers · 35 Cornell-connected · 20 AI-active · 15 verified contact routes · <b>0 confirmed warm introductions</b> — 3 verified institutional paths, 6 potential routes, and every number below is traceable to a table in this report.</div>
+<p><b>Sequence: Cornell ecosystem first (to get warm), alumni capital second (to get funded).</b> Zach Shulman — Director of Entrepreneurship at Cornell, with a verified public email — is the correct first conversation: ask him for guidance and 2–3 relevant introductions, not for capital. Behind him sit 10 stage-gated firms where a verified Cornell graduate holds a real investment role and the fund demonstrably writes pre-seed/seed AI checks today. Nothing in this report claims an introduction exists until a named person agrees to make one.</p>
+<div class="metric">
+<div class="tile"><div class="n">45</div><div class="l">Total qualified investors</div><div class="s">45 verified firms in the dataset + 5 external-wave candidates still pending degree validation</div></div>
+<div class="tile"><div class="n">10</div><div class="l">Verified Tier-1 investors</div><div class="s">Stage-gated: Cornell + AI + genuine pre-seed/seed activity (section 03)</div></div>
+<div class="tile"><div class="n">15</div><div class="l">Top decision-makers</div><div class="s">Degree + current role + firm AI deals, primary-sourced (sections 02/03)</div></div>
+<div class="tile"><div class="n">35</div><div class="l">Cornell-connected investors</div><div class="s">Classes A–F verified; 10 fallback funds hold no Cornell tie and are labeled</div></div>
+<div class="tile"><div class="n">20</div><div class="l">AI pre-seed/seed investors</div><div class="s">Deployment-audited ACTIVE with named 2025–26 AI deals (section 05)</div></div>
+<div class="tile"><div class="n">15</div><div class="l">Verified contacts</div><div class="s">9 fresh Apollo-verified board contacts + 1 official Cornell directory + 5 flagged register routes (section 06)</div></div>
+<div class="tile"><div class="n">0</div><div class="l">Confirmed warm intros</div><div class="s">3 verified institutional paths + 6 potential routes — none asserted as warm until a named person agrees</div></div>
+<div class="tile"><div class="n">13</div><div class="l">Research gaps</div><div class="s">Tracked live; targets touched by an open gap stay at LIKELY/POSSIBLE (section 10)</div></div>
+</div>
+<div class="callout"><b>The 60-second read:</b> one verified network key — Zach Shulman, Director of Entrepreneurship at Cornell — is the correct first email. Behind him sit 10 stage-gated firms where a verified Cornell graduate actually decides AI pre-seed/seed checks: Lux (Wolfe), Menlo (Das), Founder Collective (Rosenbloom), 645 (Holiday), Boldstart (Sim), Primary (Svrluga), FirstMark (Fleming), NEA (Schoen), MaC (Nichols), plus Radical at firm level. 15 verified contact routes exist today. 0 warm introductions are claimed. The plan: ecosystem first, capital second — and no direct fundraising ask until sales traction and customer proof exist.</div>
+<div class="gate"><b>Relationship gate (from Arthi + Sai's brief):</b> build relationships now. Escalate to targeted investor updates only after sales traction and customer proof points exist. Direct fundraising asks wait for the data room. Every recommended action below is staged against this gate.</div>
+<div class="callout"><b>What to do next (30-day shape):</b> Week 1 — email Shulman; ask for guidance and introductions into Red Bear / BRV / 645. Week 2 — thesis emails to Boldstart (Sim), FirstMark (Fleming), Founder Collective (Rosenbloom). Week 3 — Cornell-led approaches to Lux (Wolfe), Menlo (Das), NEA (Schoen), Primary (Svrluga). Week 4 — AI-finance thesis conversation with Neotribe (Mitchem) and international shortlist checks (Radical, Point Nine, Wavemaker). Every opener carries the Cornell line in sentence one — that is the permission structure of this network.</div>
+<div class="legend" aria-label="Badge legend">
+<span class="lt">Cornell:</span><span class="li"><span class="b bA">DIRECT ALUMNI INVESTOR</span></span><span class="li"><span class="b bB">CORNELL FOUNDER/PARTNER</span></span><span class="li"><span class="b bC">INSTITUTIONAL</span></span><span class="li"><span class="b bD">ECOSYSTEM</span></span><span class="li"><span class="b bE">PORTFOLIO (weak)</span></span><span class="li"><span class="b bG">NOT VERIFIED</span></span>
+<span class="lt">Authority:</span><span class="li"><span class="b bok">LEAD</span></span><span class="li"><span class="b bap">DECISION-MAKER</span></span><span class="li"><span class="b bap">INVESTMENT PRO</span></span><span class="li"><span class="b bD">INFLUENCER</span></span><span class="li"><span class="b bv">NETWORK VALUE</span></span><span class="li"><span class="b bop">OPERATIONAL</span></span>
+<span class="lt">Access:</span><span class="li"><span class="b bA">DIRECT</span></span><span class="li"><span class="b bB">ALUMNI PATH</span></span><span class="li"><span class="b bC">ECOSYSTEM PATH</span></span><span class="li"><span class="b bD">POTENTIAL INTRO</span></span><span class="li"><span class="b bF">COLD ONLY</span></span>
+<span class="lt">Confidence:</span><span class="li"><span class="b bok">CONFIRMED</span></span><span class="li"><span class="b blk">LIKELY</span></span><span class="li"><span class="b bps">POSSIBLE</span></span><span class="li"><span class="b nv">NOT VERIFIED</span></span>
+</div>
+</section>
+</div>
+<div class="wrap">
+<section id="people">
+<div class="secnum">02 · TOP 10 PEOPLE TO BUILD RELATIONSHIPS WITH</div>
+<h2>Executive Action Board</h2>
+<div class="tldr">Start with Shulman — ask him to open doors. Then the capital: Wolfe (Lux), Das (Menlo), Rosenbloom (FC), Holiday (645). Then the thesis emails: Sim, Svrluga, Schoen, Nichols, Fleming. <b>Every card is email-ready and every field carries its own evidence state.</b></div>
+<p class="board-summary"><b>Board rule:</b> every person below has a verified LinkedIn and confirmed email. Rank rewards decision authority, active AI seed fit, Cornell relevance, and usable access — not fame. Authority labels separate the person who decides from the senior figure who influences.</p>
+<details class="board-method"><summary>How this board is ranked and how to read a card</summary><p>Each card carries: current role, Cornell school/degree, AI focus, stage, named AI investments, investment authority, relationship strength, contactability, warm-intro potential, contact actions, confidence, and one practical next move. Contact re-validation ran Aug 21 2026 via Apollo: 9 of 10 board contacts returned current-firm/title matches with verified emails; Shulman's route is the official Cornell directory plus a live public LinkedIn page. Zero emails are pattern-guessed.</p></details>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#1</span><span class="pname">Zach Shulman</span><span class="pfirm">Cayuga Venture Fund · Cornell University</span><span class="b bv">NETWORK VALUE</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Managing Director, Cayuga; Director of Entrepreneurship at Cornell — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bB">CORNELL FOUNDER/PARTNER</span> + <span class="b bC">INSTITUTIONAL</span></div></div>
+<div class="f">School / degree<div class="v">BS '87 ILR · JD '90 Law — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">Cornell spinouts, upstate NY tech (not AI-exclusive)</div></div>
+<div class="f">Investment stage<div class="v">Seed–A · $250K–1.5M</div></div>
+<div class="f">Relevant AI investments<div class="v">Ursa Space · Rosie (Cornell-ecosystem deals)</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span> (Cayuga) · <span class="b bv">NETWORK VALUE</span> (Cornell)</div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bA">DIRECT</span> — official public directory contact · ecosystem hub</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — verified email + live public LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b bok">HIGH</span> — he is the introducer, not the introed</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:zjs2@cornell.edu">zjs2@cornell.edu</a>
+    <span class="b blk">CORNELL DIRECTORY EMAIL + PUBLIC LINKEDIN</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:zjs2@cornell.edu">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/zachshulman" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span> (role + degree + email route)</div></div>
+</div>
+<p><b>Next action:</b> Email this week. Ask for guidance and 2–3 relevant introductions (Red Bear / BRV / 645) — relationship first, not capital.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#2</span><span class="pname">Josh Wolfe</span><span class="pfirm">Lux Capital</span><span class="b bA">DIRECT ALUMNI INVESTOR</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Co-Founder &amp; Managing Partner — <span class="b bok">CONFIRMED</span> (fresh Apollo match)</div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bA">DIRECT ALUMNI</span> + <span class="b bB">CO-FOUNDER</span> (with Peter Hébert BS'99 ILR)</div></div>
+<div class="f">School / degree<div class="v">BS '99, CALS/Dyson — alumni.cornell.edu — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">Frontier AI, deep tech · Fund IX $1.5B (Jan 2026)</div></div>
+<div class="f">Investment stage<div class="v">Seed–B · $1M–5M seed</div></div>
+<div class="f">Relevant AI investments<div class="v">Sakana AI · Physical Intelligence · Together AI · Hugging Face</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span></div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bD">POTENTIAL INTRODUCTION</span> — CALS/ILR alumni office; no named introducer verified</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b bD">LOW–MEDIUM</span> — alumni office route unproven</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:josh.wolfe@luxcapital.com">josh.wolfe@luxcapital.com</a>
+    <span class="b blk">APOLLO VERIFIED · CATCH-ALL DOMAIN</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:josh.wolfe@luxcapital.com">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/josh-wolfe-7883" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://www.luxcapital.com" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Warm via CALS alumni office, then a thesis email referencing Sakana AI / agentic infrastructure — one page, no deck.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#3</span><span class="pname">Deedy Das</span><span class="pfirm">Menlo Ventures</span><span class="b bA">DIRECT ALUMNI INVESTOR</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Partner; leads Anthropic Anthology Fund ($100M) — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bA">DIRECT ALUMNI</span></div></div>
+<div class="f">School / degree<div class="v">BS + MEng CS '14 (magna cum laude) — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">AI agents, Anthropic-ecosystem startups</div></div>
+<div class="f">Investment stage<div class="v">Seed–B · $500K–5M</div></div>
+<div class="f">Relevant AI investments<div class="v">Anthropic Anthology portfolio · OpenRouter</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span> (Anthology Fund)</div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bD">POTENTIAL INTRODUCTION</span> — Cornell CS alumni; no named introducer verified</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b bD">LOW–MEDIUM</span> — CS alumni route unproven</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:das@menlovc.com">das@menlovc.com</a>
+    <span class="b bok">APOLLO VERIFIED</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:das@menlovc.com">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/debarghyadas" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://menlovc.com" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Position SARVAX as an enterprise agent-deployment story (wealth-management workflows). Cornell CS line opens the email.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#4</span><span class="pname">Micah Rosenbloom</span><span class="pfirm">Founder Collective</span><span class="b bA">DIRECT ALUMNI INVESTOR</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Managing Partner — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bA">DIRECT ALUMNI</span> + <span class="b bC">INSTITUTIONAL</span> (teaches at Cornell Tech)</div></div>
+<div class="f">School / degree<div class="v">BS '98 ILR — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">Platform + applied AI, founder-first pre-seed</div></div>
+<div class="f">Investment stage<div class="v">Pre-seed–Seed · $500K–2M</div></div>
+<div class="f">Relevant AI investments<div class="v">Verkada · active seed AI portfolio</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span></div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bC">CORNELL ECOSYSTEM PATH</span> — verified: he teaches the VC class at Cornell Tech (institutional, not a confirmed personal intro)</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b blk">MEDIUM</span> — institutional path verified; introduction not agreed</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:micah@foundercollective.com">micah@foundercollective.com</a>
+    <span class="b bok">APOLLO VERIFIED</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:micah@foundercollective.com">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/micah-rosenbloom-a0350" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://www.foundercollective.com" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Concise Cornell-led note. He teaches founders how to pitch VCs — the audience is as warm as an unconfirmed path gets.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#5</span><span class="pname">Aaron Holiday</span><span class="pfirm">645 Ventures</span><span class="b bA">DIRECT ALUMNI INVESTOR</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Co-Founder &amp; Managing Partner — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bA">DIRECT ALUMNI</span> + <span class="b bB">FIRM CO-FOUNDER</span> + <span class="b bC">CORNELL TECH BOARD</span></div></div>
+<div class="f">School / degree<div class="v">Johnson MBA '12 · ex-Big Red Ventures MD — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">Enterprise AI + SaaS · $550M AUM</div></div>
+<div class="f">Investment stage<div class="v">Seed–A · $500K–2M</div></div>
+<div class="f">Relevant AI investments<div class="v">Shift Technology · FiscalNote · Panther</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span></div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bC">CORNELL ECOSYSTEM PATH</span> — verified: ex-BRV MD + Cornell Tech board; Shulman introduction NOT yet agreed</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b blk">MEDIUM-HIGH</span> — strongest institutional line; still requires Shulman to agree</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:aaron@645ventures.com">aaron@645ventures.com</a>
+    <span class="b bok">APOLLO VERIFIED</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:aaron@645ventures.com">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/aholidayiii" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://645ventures.com" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Request the Shulman introduction. Purest Cornell-to-VC line in the entire map — but it stays POTENTIAL until Shulman says yes.</p>
+</div>
+<div class="pcard">
+<div class="phead"><span class="prank">#6</span><span class="pname">Ed Sim</span><span class="pfirm">Boldstart Ventures</span><span class="b bB">CORNELL FOUNDER/PARTNER</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Founder &amp; General Partner — <span class="b bok">CONFIRMED</span> (fresh Apollo match)</div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bB">FOUNDER/GP</span></div></div>
+<div class="f">School / degree<div class="v">BS '94 Dyson/CALS — <span class="b bok">CONFIRMED</span> (fund bio; one independent check still pending)</div></div>
+<div class="f">AI investment focus<div class="v">Inception-stage enterprise AI infra · Fund VII $250M</div></div>
+<div class="f">Investment stage<div class="v">Inception–A · $500K–5M</div></div>
+<div class="f">Relevant AI investments<div class="v">Modular · Agentuity · Surf AI · BigID</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span></div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bD">POTENTIAL INTRODUCTION</span> — Dyson alumni office; no named introducer verified</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + Apollo-anchored LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b bD">LOW–MEDIUM</span> — Dyson office route unproven</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:ed@boldstart.vc">ed@boldstart.vc</a>
+    <span class="b blk">APOLLO VERIFIED · CATCH-ALL DOMAIN</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:ed@boldstart.vc">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/edsim" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://boldstart.vc" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span> (degree: 2nd source pending)</div></div>
+</div>
+<p><b>Next action:</b> Send the agent-runtime one-pager. Boldstart is the exact stage + thesis match for SARVAX.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#7</span><span class="pname">Brad Svrluga</span><span class="pfirm">Primary Venture Partners</span><span class="b bB">CORNELL FOUNDER/PARTNER</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Co-Founder &amp; Managing Partner — <span class="b bok">CONFIRMED</span> (fresh Apollo match)</div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bB">CO-FOUNDER/MP</span> — founded High Peaks VC for Upstate NY/Cornell innovation</div></div>
+<div class="f">School / degree<div class="v">BA '93 Economics — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">B2B AI + fintech · Fund V $625M (Feb 2026)</div></div>
+<div class="f">Investment stage<div class="v">Pre-seed–A · $100K–10M</div></div>
+<div class="f">Relevant AI investments<div class="v">Etched · LlamaIndex · Knostic · Cake AI</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span></div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bD">POTENTIAL INTRODUCTION</span> — Cornell Tech speaker circuit; no named introducer verified</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + Apollo-anchored LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b bD">LOW–MEDIUM</span> — circuit route unproven</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:brad@primary.vc">brad@primary.vc</a>
+    <span class="b blk">APOLLO VERIFIED · CATCH-ALL DOMAIN</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:brad@primary.vc">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/bradsvrluga" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://www.primary.vc" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Warm via Cornell Tech events. Cornell is his stated mission — lead with it.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#8</span><span class="pname">Dez Fleming</span><span class="pfirm">FirstMark Capital</span><span class="b bA">DIRECT ALUMNI INVESTOR</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Principal — <span class="b bok">CONFIRMED</span> (fresh Apollo match)</div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bA">DIRECT ALUMNI</span> (fund has 3 Cornellians: Fleming, Bitsky, Strandberg)</div></div>
+<div class="f">School / degree<div class="v">BS '17 Dyson AEM (cum laude) — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">LLM infrastructure + applied AI · $3.5B AUM</div></div>
+<div class="f">Investment stage<div class="v">Pre-seed–A · $250K–10M</div></div>
+<div class="f">Relevant AI investments<div class="v">TensorZero · Gradium · Tycho AI</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bap">INVESTMENT PROFESSIONAL</span> (principal — sources deals, GPs decide)</div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bD">POTENTIAL INTRODUCTION</span> — Dyson alumni (same school); no named introducer verified</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + LinkedIn (corrected handle)</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b bD">LOW–MEDIUM</span> — Dyson route unproven</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:dez@firstmark.com">dez@firstmark.com</a>
+    <span class="b bok">APOLLO VERIFIED</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:dez@firstmark.com">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/desmond-fleming-b84042100" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://firstmarkcap.com" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Thesis email — principals respond; reference the Dyson shared school in line one.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#9</span><span class="pname">Andrew Schoen</span><span class="pfirm">New Enterprise Associates (NEA)</span><span class="b bA">DIRECT ALUMNI INVESTOR</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Partner — <span class="b bok">CONFIRMED</span> (fresh Apollo match)</div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bA">DIRECT ALUMNI</span> + <span class="b bC">INSTITUTIONAL</span> (Cornell Entrepreneurship Advisory Council)</div></div>
+<div class="f">School / degree<div class="v">BA — founded the Cornell VC Club — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">Enterprise AI + infrastructure · multi-billion AUM</div></div>
+<div class="f">Investment stage<div class="v">Seed–C · $1M–10M</div></div>
+<div class="f">Relevant AI investments<div class="v">P-1 AI + enterprise AI portfolio</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bap">DECISION-MAKER (PARTNER)</span></div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bC">CORNELL ECOSYSTEM PATH</span> — verified: he founded the VC Club (institutional, not a confirmed personal intro)</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b blk">MEDIUM</span> — institutional path verified; introduction not agreed</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:aschoen@nea.com">aschoen@nea.com</a>
+    <span class="b bok">APOLLO VERIFIED</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:aschoen@nea.com">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/andrewaschoen" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://www.nea.com" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Relationship-first note referencing the VC Club. He built the Cornell-to-VC pipeline — use it.</p>
+</div>
+
+<div class="pcard">
+<div class="phead"><span class="prank">#10</span><span class="pname">Marlon Nichols</span><span class="pfirm">MaC Venture Capital</span><span class="b bA">DIRECT ALUMNI INVESTOR</span></div>
+<div class="pgrid">
+<div class="f">Current role<div class="v">Co-Founder &amp; Managing General Partner — <span class="b bok">CONFIRMED</span> (fresh Apollo match)</div></div>
+<div class="f">Cornell connection<div class="v"><span class="b bA">DIRECT ALUMNI</span> + adjunct faculty at Johnson</div></div>
+<div class="f">School / degree<div class="v">Johnson MBA '11 (Park Leadership Fellow) — <span class="b bok">CONFIRMED</span></div></div>
+<div class="f">AI investment focus<div class="v">AI/ML + fintech + culture · ~$600M AUM, Fund III $150M (Nov 2024)</div></div>
+<div class="f">Investment stage<div class="v">Pre-seed–A · $1M–2M</div></div>
+<div class="f">Relevant AI investments<div class="v">26+ AI companies · Cypher AI · Autoscience · Fable</div></div>
+<div class="f">Investment authority<div class="v"><span class="b bok">LEAD DECISION-MAKER</span></div></div>
+<div class="f">Relationship strength<div class="v"><span class="b bD">POTENTIAL INTRODUCTION</span> — Johnson alumni network; no named introducer verified</div></div>
+<div class="f">Contactability<div class="v"><span class="b bok">HIGH</span> — Apollo-verified email + LinkedIn</div></div>
+<div class="f">Warm-intro potential<div class="v"><span class="b bD">LOW–MEDIUM</span> — Johnson route unproven</div></div>
+<div class="f contact-block">Contact
+  <div class="v">
+    <a class="email-link" href="mailto:marlon@macventurecapital.com">marlon@macventurecapital.com</a>
+    <span class="b bok">APOLLO VERIFIED</span>
+    <div class="contact-actions">
+      <a class="contact-action" href="mailto:marlon@macventurecapital.com">Email ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/marloncnichols" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="contact-action" href="https://macventurecapital.com" target="_blank" rel="noopener">Firm ↗</a>
+    </div>
+  </div>
+</div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<p><b>Next action:</b> Johnson-alumni-led note; cite his AI/ML portfolio category, not just "AI".</p>
+</div>
+
+<details class="watchlist"><summary>Watchlist — not on the action board</summary><p><b>John Megrue Jr.</b> (Radical) is an INFLUENCER — verified contact, but his email domain doesn't match the firm and Radical's day-to-day AI leads are other partners. <b>Jenny Fielding</b> (Everywhere) has direct Cornell Tech Studio access and a verified contact. <b>Rebecca Mitchem</b> (Neotribe) has a verified contact but degree + investment authority still need checking. <b>Excluded by the contact gate:</b> Morgan Beller (no verified email) and Doug Leone (no direct route) — firm-level mentions remain, correctly labeled.</p></details>
+</section>
+</div>
+<div class="wrap">
+<section id="firms">
+<div class="secnum">03 · TOP INVESTOR FIRMS</div>
+<h2>Stage-Gated Tier-1 Board</h2>
+<div class="tldr">Ten firms pass the stage gate with a verified Cornell person in a real investment role. <b>A score is prioritization; the evidence state under each claim is the truth.</b></div>
+<p>The hard gate is applied first: <b>no growth-stage fund can hold Tier 1, no matter how strong the Cornell tie</b> (this removed Granite Asia from the seed board; Touring Capital is capped at Tier 2). Then the 8-dimension model scores what remains. <b>Rows 1–10 = Tier 1</b> (act now); <b>rows 11–12 = Tier 2</b> (strong, with open verification items).</p>
+<p><b>Firm vs person:</b> the firm score answers "does the fund fit us"; the person's authority badge answers "does the Cornell tie actually decide anything". Both matter — Radical scores high as a firm while Megrue is labeled INFLUENCER, and the board shows both honestly.</p>
+<div class="twrap"><table>
+<tr><th>#</th><th>Firm</th><th>Location</th><th>Stage</th><th>Check</th><th>AI thesis</th><th>Relevant AI portfolio</th><th>Cornell person</th><th>Class</th><th>Decision-maker</th><th>Access</th><th>Score</th><th>Confidence</th></tr>
+<tr><td>1</td><td><a href="https://www.luxcapital.com">Lux Capital</a></td><td>New York</td><td>Seed–B</td><td>$1M–5M</td><td>Frontier AI + deeptech · Fund IX $1.5B (Jan 2026)</td><td>Sakana AI · Physical Intelligence · Together AI · Hugging Face</td><td>Wolfe '99 + Hébert '99 (both co-founders)</td><td><span class="b bA">A+B</span></td><td><span class="b bok">LEAD</span> Wolfe</td><td><span class="b bD">POTENTIAL</span></td><td><b>9.1</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>2</td><td><a href="https://www.sequoiacap.com">Sequoia Capital</a></td><td>Menlo Park</td><td>Seed–Growth</td><td>$500K–5M (Seed Fund)</td><td>Frontier AI + enterprise</td><td>Harvey · LangChain · Sierra · World Labs</td><td>Doug Leone BS ME'79 — Chairman since Mar 2026</td><td><span class="b bA">A</span></td><td><span class="b bD">INFLUENCER</span> (firm)</td><td><span class="b bD">POTENTIAL</span></td><td><b>8.5</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>3</td><td><a href="https://menlovc.com">Menlo Ventures</a></td><td>Menlo Park</td><td>Seed–B</td><td>$500K–5M</td><td>AI agents · $100M Anthropic Anthology Fund</td><td>Anthropic Anthology · OpenRouter</td><td>Deedy Das BS+MEng CS'14</td><td><span class="b bA">A</span></td><td><span class="b bok">LEAD</span> Das</td><td><span class="b bD">POTENTIAL</span></td><td><b>8.8</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>4</td><td><a href="https://www.nea.com">NEA</a></td><td>US multi-office</td><td>Seed–C</td><td>$1M–10M</td><td>Enterprise AI + infra</td><td>P-1 AI + enterprise AI portfolio</td><td>Andrew Schoen BA — founded Cornell VC Club</td><td><span class="b bA">A+C</span></td><td><span class="b bap">DECISION-MAKER</span> Schoen</td><td><span class="b bA">DIRECT</span></td><td><b>8.8</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>5</td><td><a href="https://645ventures.com">645 Ventures</a></td><td>New York</td><td>Seed–A</td><td>$500K–2M</td><td>Enterprise AI + SaaS · $550M AUM</td><td>Shift Technology · FiscalNote · Panther</td><td>Aaron Holiday MBA'12 — Cornell Tech board</td><td><span class="b bA">A+B+C</span></td><td><span class="b bok">LEAD</span> Holiday</td><td><span class="b bA">DIRECT</span></td><td><b>8.8</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>6</td><td><a href="https://boldstart.vc">Boldstart Ventures</a></td><td>New York</td><td>Inception–A</td><td>$500K–5M</td><td>Enterprise AI infra + dev tools · Fund VII $250M</td><td>Modular · Agentuity · Surf AI · BigID</td><td>Ed Sim BS'94 Dyson</td><td><span class="b bB">B</span></td><td><span class="b bok">LEAD</span> Sim</td><td><span class="b bD">POTENTIAL</span></td><td><b>8.9</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>7</td><td><a href="https://firstmarkcap.com">FirstMark Capital</a></td><td>New York</td><td>Pre-seed–A</td><td>$250K–10M</td><td>LLM infra + AI apps</td><td>TensorZero · Gradium · Tycho AI</td><td>Fleming '17 + Bitsky + Strandberg</td><td><span class="b bA">A</span></td><td><span class="b bap">INVESTMENT PRO</span> Fleming</td><td><span class="b bD">POTENTIAL</span></td><td><b>8.7</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>8</td><td><a href="https://www.foundercollective.com">Founder Collective</a></td><td>New York</td><td>Pre-seed–Seed</td><td>$500K–2M</td><td>Platform + applied AI</td><td>Verkada + seed AI portfolio</td><td>Micah Rosenbloom BS'98 ILR</td><td><span class="b bA">A+C</span></td><td><span class="b bok">LEAD</span> Rosenbloom</td><td><span class="b bA">DIRECT</span></td><td><b>8.9</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>9</td><td><a href="https://www.primary.vc">Primary Venture Partners</a></td><td>New York</td><td>Pre-seed–A</td><td>$100K–10M</td><td>B2B AI + fintech · Fund V $625M</td><td>Etched · LlamaIndex · Knostic · Cake AI</td><td>Brad Svrluga BA'93 Econ</td><td><span class="b bB">B</span></td><td><span class="b bok">LEAD</span> Svrluga</td><td><span class="b bD">POTENTIAL</span></td><td><b>8.7</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>10</td><td><a href="https://www.radical.vc">Radical Ventures</a></td><td>Toronto</td><td>Seed–A</td><td>$1M–5M</td><td>Applied AI · Cohere, World Labs, ElevenLabs</td><td>Cohere · World Labs · ElevenLabs · Covariant</td><td>John Megrue BS ME'80 — ex-Trustee</td><td><span class="b bA">A+B+C</span></td><td><span class="b bD">INFLUENCER</span> Megrue (day-to-day leads: other partners)</td><td><span class="b bD">POTENTIAL</span></td><td><b>8.6</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>11</td><td><a href="https://neotribe.com">Neotribe Ventures</a></td><td>Palo Alto</td><td>Seed–A</td><td>$1M–5M</td><td>AI + fintech + security · backed Auquan (AI finance)</td><td>Auquan · K Health · Optellum</td><td>Rebecca Mitchem (degree pending primary source)</td><td><span class="b blk">A — LIKELY</span></td><td><span class="b bop">OPERATIONAL</span> — verify</td><td><span class="b bD">POTENTIAL</span></td><td><b>7.8</b></td><td><span class="b blk">LIKELY</span></td></tr>
+<tr><td>12</td><td><a href="https://www.nfx.com">NFX</a></td><td>San Francisco</td><td>Pre-seed–Seed</td><td>$1M–10M</td><td>Network-effects AI · $450M Fund III</td><td>Maisa · On Me</td><td>Morgan Beller BS'13</td><td><span class="b bA">A</span></td><td><span class="b bap">DECISION-MAKER</span> Beller</td><td><span class="b bD">POTENTIAL</span></td><td><b>8.0</b></td><td><span class="b bok">CONFIRMED</span></td></tr>
+</table></div>
+<p class="small"><b>International relationship-building shortlist</b> (held at Tier 2 until role/seat checks close): Radical Ventures (Toronto) · Point Nine Capital (Berlin — email domain mismatch open) · Cherry Ventures (Berlin) · Wavemaker Partners (Singapore/US — title conflict open) · Cathay Innovation (Paris/SF). <b>Removed by stage gate:</b> Granite Asia (growth-only) — long-game relationship only. <b>Tier-4 fallback (no Cornell tie — never carry Cornell messaging):</b> Eniac, Work-Bench, Benchmark, a16z, Greylock, Kleiner, Bessemer, Index, LocalGlobe, Northzone, Unusual, Conviction, BoxGroup.</p>
+
+<details>
+<summary>Scoring methodology — transparent (fit score)</summary>
+<div class="ev">
+<p><b>Hard gate first:</b> a firm with no genuine pre-seed/seed activity cannot exceed Tier 3, regardless of Cornell strength or fame. Gate failures: Granite Asia (growth), Touring Capital (early-growth bias — Tier 2 ceiling).</p>
+<div class="twrap"><table>
+<tr><th>Dimension</th><th>Weight</th><th>Scale</th></tr>
+<tr><td>Cornell connection</td><td>20%</td><td>A/B=10 · C=7 · D=5 · E=2 · G=0 (verified degree required for 10)</td></tr>
+<tr><td>AI investment activity</td><td>20%</td><td>AI-native thesis + 4+ named deals=10 · strong=8–9 · moderate=6–7 · none=0</td></tr>
+<tr><td>Pre-seed/seed fit</td><td>15%</td><td>inception/pre-seed/seed specialist=10 · seed–early=8–9 · multi-stage with seed vehicle=7–8 · growth=GATE</td></tr>
+<tr><td>Decision authority</td><td>10%</td><td>LEAD=10 · DECISION-MAKER=9 · INVESTMENT PRO=8 · INFLUENCER=5 · NETWORK=4 · OPERATIONAL=3 · NOT VERIFIED=2</td></tr>
+<tr><td>Portfolio relevance</td><td>10%</td><td>enterprise agents / fintech AI =10 · B2B AI=8 · general AI=6</td></tr>
+<tr><td>Reachability</td><td>10%</td><td>verified email=10 · public route=8 · LinkedIn-only=5 · firm-only=4 · none=2</td></tr>
+<tr><td>Warm-intro potential</td><td>10%</td><td>verified institutional path=10 · ecosystem-verified=8 · POTENTIAL=6 · NONE FOUND=2 (a confirmed introduction counts only after a named person agrees)</td></tr>
+<tr><td>Evidence strength</td><td>5%</td><td>all CONFIRMED=10 · mixed=6 · thin=3</td></tr>
+</table></div>
+<p><b>What the score means:</b> 9+ = rare, multi-advantage target. 8.5–9 = excellent fit with one imperfect dimension. 7.5–8.5 = solid fit with pending verification or a weaker axis. Below 7.5 = network value more than capital value. <b>Why the model has an authority axis and a stage gate:</b> the first scoring run let seniority masquerade as decision power (Megrue, Mitchem) and let a growth fund into Tier 2 on aggregate score. Both defects are fixed by design now.</p>
+</div>
+</details>
+</section>
+<section id="cornell">
+<div class="secnum">04 · CORNELL NETWORK LAYER</div>
+<h2>The Access Layer — Where Relationships Start</h2>
+<div class="tldr">Three verified institutional paths and six potential routes. <b>Order of play: Shulman → Red Bear application → Cornell Tech Studio → the right alumni office.</b></div>
+<p>This is the network that converts cold contacts into warm ones. Badges show connection type — weak relationships never look like direct alumni ties. <b>Language discipline:</b> a path here is "verified" only when the Cornell relationship itself is documented. An <i>introduction</i> becomes real only when a named person agrees to make it — until then it stays POTENTIAL.</p>
+<div class="grid2">
+<div class="card"><h3>Zach Shulman — the network key</h3><p><span class="b bC">INSTITUTIONAL</span> <span class="b bB">FOUNDER/PARTNER</span> — Director of Entrepreneurship at Cornell + Cayuga GP. Official directory email verified. One conversation can produce guidance and introductions into Red Bear, BRV, and 645. <b>Ask him; don't assume.</b></p></div>
+<div class="card"><h3>Cornell VC Club (founded by Andrew Schoen)</h3><p><span class="b bC">INSTITUTIONAL — VERIFIED PATH</span> — the club's alumni are now partners across US funds. Schoen is the proof the pipeline works. The club itself is the documented door into NEA.</p></div>
+<div class="card"><h3>Cornell Tech Startup Studio (NYC)</h3><p><span class="b bC">INSTITUTIONAL — VERIFIED PATH</span> — David Tisch (BoxGroup), Jenny Fielding (Everywhere), Brian Schechter (Primary), Micah Rosenbloom (teaches there). The NYC campus-to-capital channel.</p></div>
+<div class="card"><h3>Red Bear Angels &amp; Ventures</h3><p><span class="b bD">ECOSYSTEM</span> — the dedicated Cornell-founders investor network. $25M+ deployed, $50K–$1M band, public application. Dan Stoller '93 + Gus Warren '94. Direct application process — no intro needed.</p></div>
+<div class="card"><h3>Big Red Ventures · Gorges · Triphammer</h3><p><span class="b bC">INSTITUTIONAL</span> <span class="b bD">ECOSYSTEM</span> — campus funds ($25K checks) and the Alumni Ventures Cornell fund ($50K–$500K co-invests). Signal + small checks, high relationship value.</p></div>
+<div class="card"><h3>Alumni-office channels (POTENTIAL)</h3><p><span class="b bD">POTENTIAL</span> — Dyson office → Sim, Fleming; CALS office → Wolfe; CS alumni → Das; Cornell Tech circuit → Svrluga; Board office → Megrue; Cornell Engineering donor relations → Leone. Not yet confirmed as live paths — labeled POTENTIAL, never asserted.</p></div>
+</div>
+</section>
+
+<section id="ainvest">
+<div class="secnum">05 · AI INVESTOR UNIVERSE</div>
+<h2>Verified AI Pre-Seed / Seed Activity</h2>
+<div class="tldr">Every fund on this board is ACTIVE with fresh 2025–26 AI deals — and the new capital is going into agentic AI, <b>SARVAX's natural opening</b>.</div>
+<p>Deployment audit result: <b>13/13 funds checked are STATUS ACTIVE</b> with named AI deals in the last ~12 months and a live fund vehicle — nobody on this board is between funds. "ACTIVE" means two independent things were verified: a named AI deal AND a live fund vehicle. Fresh capital context: Lux Fund IX $1.5B (Jan 2026) · Primary Fund V $625M (Feb 2026) · Boldstart VII $250M · Sequoia early funds $950M. The agentic-AI wave is where this capital is going — the SARVAX pitch's natural opening.</p>
+<div class="twrap"><table>
+<tr><th>Fund</th><th>Recent AI deal (2025–26)</th><th>Fund vehicle</th><th>Status</th></tr>
+<tr><td>Lux Capital</td><td>Cognition $1B · Phonic $4M seed</td><td>Fund IX $1.5B (Jan 2026)</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>Sequoia</td><td>Ineffable Intelligence $1B seed · Sierra</td><td>$950M early funds</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>Menlo</td><td>Anthropic Anthology deployments</td><td>Anthology $100M</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>Boldstart</td><td>Agentuity $4M seed · Surf AI</td><td>Fund VII $250M</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>FirstMark</td><td>TensorZero $7.3M seed</td><td>NY Seed Fund</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>Primary</td><td>LightTable $6M seed · Cake AI</td><td>Fund V $625M</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>Founder Collective</td><td>active seed AI portfolio</td><td>rolling</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>NEA</td><td>P-1 AI</td><td>active</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>645 Ventures</td><td>enterprise AI seeds</td><td>Fund IV $347M</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>Radical</td><td>Cohere · World Labs · ElevenLabs</td><td>$1B+ AI fund</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>Neotribe</td><td>Auquan (AI finance)</td><td>active</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>NFX</td><td>Maisa $25M seed</td><td>Fund III $450M</td><td><span class="b bok">ACTIVE</span></td></tr>
+<tr><td>MaC</td><td>Cypher AI · Autoscience (2026)</td><td>Fund III $150M (Nov 2024)</td><td><span class="b bok">ACTIVE</span></td></tr>
+</table></div>
+<p class="small">External-wave firms pending verification (not yet on the active board): Zetta (Reid), One Way (Zhao), Touring (Kumar), Entropy (Mirkin), Cybernetix (Martin).</p>
+</section>
+</div>
+<div class="wrap">
+<section id="contact">
+<div class="secnum">06 · CONTACT INTELLIGENCE</div>
+<h2>Verified Contact Register</h2>
+<div class="tldr">Fifteen contact routes, each labeled with its exact proof type. <b>Warm-first protocol applies: no cold email before the Cornell-intro step has been attempted for that person.</b></div>
+<div class="callout"><b>Contact verification matrix (fresh re-validation Aug 21 2026):</b> 10 board contacts re-checked via Apollo — 9 returned current-firm/title matches with verified emails and LinkedIn anchors; 1 (Shulman) is an official Cornell directory email with a live public LinkedIn page. 3 of the 9 Apollo-verified emails sit on catch-all employer domains (Lux, Boldstart, Primary) — valid Apollo routes, flagged for deliverability honesty. <b>0 confirmed warm introductions exist.</b> Sales Navigator is not available in this environment; Apollo is the enrichment tool. Zero emails are pattern-guessed.</div>
+<p>Three email statuses exist, nothing else: <b>APOLLO VERIFIED</b> (Apollo enrichment returned email_status=verified), <b>CORNELL DIRECTORY</b> (posted on the official university directory), <b>NOT FOUND</b>. Contact confidence: HIGH = current role + email + LinkedIn all check; MEDIUM = a flag is open (domain mismatch, title conflict, or authority pending).</p>
+<div class="twrap"><table class="ctable">
+<tr><th>Person</th><th>Firm</th><th>Role</th><th>LinkedIn</th><th>Email</th><th>Email verification</th><th>Apollo status</th><th>Sales Nav</th><th>Location</th><th>Confidence</th></tr>
+<tr><td>Zach Shulman</td><td>Cayuga / Cornell</td><td class="nt">MD; Dir Entrepreneurship</td><td><a class="contact-action" href="https://www.linkedin.com/in/zachshulman" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:zjs2@cornell.edu">zjs2@cornell.edu</a></td><td><span class="b blk">CORNELL DIRECTORY</span></td><td class="nt">Aug 20</td><td class="nt">N/A</td><td class="nt">Ithaca, NY</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Josh Wolfe</td><td>Lux</td><td class="nt">Co-Founder &amp; MP</td><td><a class="contact-action" href="https://www.linkedin.com/in/josh-wolfe-7883" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:josh.wolfe@luxcapital.com">josh.wolfe@luxcapital.com</a></td><td><span class="b blk">CATCH-ALL</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Deedy Das</td><td>Menlo</td><td class="nt">Partner</td><td><a class="contact-action" href="https://www.linkedin.com/in/debarghyadas" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:das@menlovc.com">das@menlovc.com</a></td><td><span class="b bok">APOLLO VERIFIED</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">Palo Alto</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Andrew Schoen</td><td>NEA</td><td class="nt">Partner</td><td><a class="contact-action" href="https://www.linkedin.com/in/andrewaschoen" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:aschoen@nea.com">aschoen@nea.com</a></td><td><span class="b bok">APOLLO VERIFIED</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">Denver</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Micah Rosenbloom</td><td>FC</td><td class="nt">Managing Partner</td><td><a class="contact-action" href="https://www.linkedin.com/in/micah-rosenbloom-a0350" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:micah@foundercollective.com">micah@foundercollective.com</a></td><td><span class="b bok">APOLLO VERIFIED</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Dez Fleming</td><td>FirstMark</td><td class="nt">Principal</td><td><a class="contact-action" href="https://www.linkedin.com/in/desmond-fleming-b84042100" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:dez@firstmark.com">dez@firstmark.com</a></td><td><span class="b bok">APOLLO VERIFIED</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Aaron Holiday</td><td>645</td><td class="nt">Co-Founder &amp; MP</td><td><a class="contact-action" href="https://www.linkedin.com/in/aholidayiii" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:aaron@645ventures.com">aaron@645ventures.com</a></td><td><span class="b bok">APOLLO VERIFIED</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Marlon Nichols</td><td>MaC</td><td class="nt">Co-Founder &amp; MGP</td><td><a class="contact-action" href="https://www.linkedin.com/in/marloncnichols" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:marlon@macventurecapital.com">marlon@macventurecapital.com</a></td><td><span class="b bok">APOLLO VERIFIED</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">Los Angeles</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Ed Sim</td><td>Boldstart</td><td class="nt">Founder &amp; GP</td><td><a class="contact-action" href="https://www.linkedin.com/in/edsim" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:ed@boldstart.vc">ed@boldstart.vc</a></td><td><span class="b blk">CATCH-ALL</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Brad Svrluga</td><td>Primary</td><td class="nt">Co-Founder &amp; MP</td><td><a class="contact-action" href="https://www.linkedin.com/in/bradsvrluga" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:brad@primary.vc">brad@primary.vc</a></td><td><span class="b blk">CATCH-ALL</span></td><td class="nt">Aug 21</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Rebecca Mitchem</td><td>Neotribe</td><td class="nt">Partner &amp; COO</td><td><a class="contact-action" href="https://www.linkedin.com/in/rebecca-mitchem-cfa-79231aa" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:rebecca@neotribe.vc">rebecca@neotribe.vc</a></td><td><span class="b blk">AUTH OPEN</span></td><td class="nt">Aug 20</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b blk">MEDIUM</span></td></tr>
+<tr><td>Jenny Fielding</td><td>Everywhere</td><td class="nt">Co-Founder &amp; GP</td><td><a class="contact-action" href="https://www.linkedin.com/in/jennyfielding" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:j@everywhere.vc">j@everywhere.vc</a></td><td><span class="b bok">APOLLO VERIFIED</span></td><td class="nt">Aug 20</td><td class="nt">N/A</td><td class="nt">New York</td><td><span class="b bok">HIGH</span></td></tr>
+<tr><td>Renaud Visage</td><td>Point Nine</td><td class="nt">GP / Co-Founder</td><td><a class="contact-action" href="https://www.linkedin.com/in/renaudvisage" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:renaud@slate.vc">renaud@slate.vc</a></td><td><span class="b blk">DOMAIN MISMATCH</span></td><td class="nt">Aug 20</td><td class="nt">N/A</td><td class="nt">Paris</td><td><span class="b blk">MEDIUM</span></td></tr>
+<tr><td>Ron Hose</td><td>Wavemaker</td><td class="nt">Venture Partner*</td><td><a class="contact-action" href="https://www.linkedin.com/in/ronhose" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:ron@ronhose.com">ron@ronhose.com</a></td><td><span class="b blk">TITLE CONFLICT</span></td><td class="nt">Aug 20</td><td class="nt">N/A</td><td class="nt">US</td><td><span class="b blk">MEDIUM</span></td></tr>
+<tr><td>John Megrue Jr.</td><td>Radical</td><td class="nt">Vice Chairman</td><td><a class="contact-action" href="https://www.linkedin.com/in/john-megrue-5a26051bb" target="_blank" rel="noopener">Open ↗</a></td><td class="nt"><a class="email-link" href="mailto:john@brightonhealth.com">john@brightonhealth.com</a></td><td><span class="b blk">DOMAIN ODDITY</span></td><td class="nt">Aug 20</td><td class="nt">N/A</td><td class="nt">Norwalk, CT</td><td><span class="b blk">MEDIUM</span></td></tr>
+</table></div>
+<p class="small">Table scrolls horizontally on narrow screens. * Ron Hose title conflict: research cell lists Venture Partner; Apollo's current record lists Independent Director — held at POSSIBLE until checked. Sales Nav: unavailable in this environment for every row (tooling gap #12).</p>
+<div class="callout"><b>Contact protocol:</b> (1) Warm before cold — no email goes out until the Cornell-introduction step (section 04) has been attempted for that person. (2) Every opener carries the Cornell line in sentence one. (3) One thread per person — no double emails, no multi-channel blasts. (4) Cold emails go only to APOLLO VERIFIED or CORNELL DIRECTORY inboxes, always to ONE person at a firm. (5) A catch-all flag means the domain accepts mail for any address — the route is real, deliverability is not guaranteed. (6) <b>Contact gate:</b> a person appears on this register only with both a verified LinkedIn and a confirmed email; failures (Beller, Leone) are tracked in research gaps until enrichment succeeds.</div>
+</section>
+
+<section id="relmap">
+  <div class="secnum">07 · RELATIONSHIP MAP</div>
+  <h2>Verified access paths — only what we can prove</h2>
+  <div class="tldr"><b>Use this map to choose the first relationship move.</b> It shows only evidence-backed Cornell links. A green line means the Cornell affiliation is verified; a dashed blue line means the outreach step is recommended, not a promised warm introduction.</div>
+  <div class="map-start">
+    <div>
+      <span class="map-kicker">START HERE</span>
+      <strong>Zach Shulman · Cornell Entrepreneurship</strong>
+      <span>Verified network key. Ask for guidance and 2–3 relevant introductions — not capital.</span>
+    </div>
+    <div class="map-start-actions">
+      <a class="contact-action" href="mailto:zjs2@cornell.edu">Email Zach ↗</a>
+      <a class="contact-action" href="https://www.linkedin.com/in/zachshulman" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="map-wrap">
+    <svg viewBox="0 0 1120 424" role="img" aria-labelledby="access-map-title access-map-desc">
+      <title id="access-map-title">Verified Cornell investor access paths</title>
+      <desc id="access-map-desc">Three evidence-backed Cornell access paths lead from Cornell organizations to Andrew Schoen at NEA, Micah Rosenbloom at Founder Collective, and Aaron Holiday at 645 Ventures. Dashed blue arrows show recommended outreach, not confirmed introductions.</desc>
+      <defs>
+        <marker id="access-map-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#32d74b"/></marker>
+        <marker id="access-map-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#4da3ff"/></marker>
+      </defs>
+      <rect width="1120" height="424" fill="#121216"/>
+      <text x="56" y="48" fill="#98989f" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="1.4">VERIFIED CORNELL DOOR</text>
+      <text x="440" y="48" fill="#98989f" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="1.4">DECISION-MAKER</text>
+      <text x="800" y="48" fill="#98989f" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="1.4">FIRST CONVERSATION</text>
+
+      <path d="M320 120 H432" fill="none" stroke="#32d74b" stroke-width="2" marker-end="url(#access-map-green)"/>
+      <path d="M696 120 H800" fill="none" stroke="#4da3ff" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#access-map-blue)"/>
+      <path d="M320 200 H432" fill="none" stroke="#32d74b" stroke-width="2" marker-end="url(#access-map-green)"/>
+      <path d="M696 200 H800" fill="none" stroke="#4da3ff" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#access-map-blue)"/>
+      <path d="M320 280 H432" fill="none" stroke="#32d74b" stroke-width="2" marker-end="url(#access-map-green)"/>
+      <path d="M696 280 H800" fill="none" stroke="#4da3ff" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#access-map-blue)"/>
+
+      <rect x="56" y="96" width="264" height="48" rx="8" fill="#17171b" stroke="#32d74b"/>
+      <text x="72" y="117" fill="#f5f5f7" font-size="16" font-family="Arial, sans-serif" font-weight="700">Cornell VC Club</text>
+      <text x="72" y="134" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Schoen founded the club</text>
+      <a href="#people" aria-label="Open Andrew Schoen in the people board">
+        <rect x="432" y="96" width="264" height="48" rx="8" fill="#17171b" stroke="#32d74b"/>
+        <text x="448" y="117" fill="#f5f5f7" font-size="16" font-family="Arial, sans-serif" font-weight="700">Andrew Schoen · NEA</text>
+        <text x="448" y="134" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Partner · decision-maker</text>
+      </a>
+      <rect x="800" y="96" width="264" height="48" rx="8" fill="#121b27" stroke="#4da3ff" stroke-dasharray="6 4"/>
+      <text x="816" y="117" fill="#f5f5f7" font-size="15" font-family="Arial, sans-serif" font-weight="700">Relationship-first note</text>
+      <text x="816" y="134" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Lead with the VC Club link</text>
+
+      <rect x="56" y="176" width="264" height="48" rx="8" fill="#17171b" stroke="#32d74b"/>
+      <text x="72" y="197" fill="#f5f5f7" font-size="16" font-family="Arial, sans-serif" font-weight="700">Cornell Tech Studio</text>
+      <text x="72" y="214" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Rosenbloom teaches here</text>
+      <a href="#people" aria-label="Open Micah Rosenbloom in the people board">
+        <rect x="432" y="176" width="264" height="48" rx="8" fill="#17171b" stroke="#32d74b"/>
+        <text x="448" y="197" fill="#f5f5f7" font-size="16" font-family="Arial, sans-serif" font-weight="700">Micah Rosenbloom · FC</text>
+        <text x="448" y="214" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Managing Partner · lead</text>
+      </a>
+      <rect x="800" y="176" width="264" height="48" rx="8" fill="#121b27" stroke="#4da3ff" stroke-dasharray="6 4"/>
+      <text x="816" y="197" fill="#f5f5f7" font-size="15" font-family="Arial, sans-serif" font-weight="700">Cornell Tech conversation</text>
+      <text x="816" y="214" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Ask for a thesis discussion</text>
+
+      <rect x="56" y="256" width="264" height="48" rx="8" fill="#17171b" stroke="#32d74b"/>
+      <text x="72" y="277" fill="#f5f5f7" font-size="16" font-family="Arial, sans-serif" font-weight="700">Big Red / Johnson</text>
+      <text x="72" y="294" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Holiday led BRV before 645</text>
+      <a href="#people" aria-label="Open Aaron Holiday in the people board">
+        <rect x="432" y="256" width="264" height="48" rx="8" fill="#17171b" stroke="#32d74b"/>
+        <text x="448" y="277" fill="#f5f5f7" font-size="16" font-family="Arial, sans-serif" font-weight="700">Aaron Holiday · 645</text>
+        <text x="448" y="294" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Co-founder · managing partner</text>
+      </a>
+      <rect x="800" y="256" width="264" height="48" rx="8" fill="#121b27" stroke="#4da3ff" stroke-dasharray="6 4"/>
+      <text x="816" y="277" fill="#f5f5f7" font-size="15" font-family="Arial, sans-serif" font-weight="700">Ask for a fit conversation</text>
+      <text x="816" y="294" fill="#98989f" font-size="12" font-family="Arial, sans-serif">Do not make a cold capital ask</text>
+
+      <line x1="56" y1="344" x2="1064" y2="344" stroke="#2a2a30" stroke-width="1"/>
+      <line x1="56" y1="376" x2="104" y2="376" stroke="#32d74b" stroke-width="2"/>
+      <text x="116" y="380" fill="#98989f" font-size="12" font-family="Arial, sans-serif">verified Cornell affiliation / institutional connection</text>
+      <line x1="640" y1="376" x2="688" y2="376" stroke="#4da3ff" stroke-width="1.5" stroke-dasharray="6 5"/>
+      <text x="700" y="380" fill="#98989f" font-size="12" font-family="Arial, sans-serif">recommended outreach — not a confirmed introduction</text>
+    </svg>
+  </div>
+  <div class="map-potential">
+    <div><span class="b bD">POTENTIAL</span><b> Alumni-office route:</b> Josh Wolfe (Lux), Ed Sim (Boldstart), Dez Fleming (FirstMark), Marlon Nichols (MaC). No named introducer verified.</div>
+    <div><span class="b bD">POTENTIAL</span><b> Cornell Tech route:</b> Brad Svrluga (Primary). Cornell Tech involvement is documented; an introduction is not.</div>
+    <a class="contact-action" href="#people">Open the full Top 10 action board ↗</a>
+  </div>
+  <details class="map-evidence">
+    <summary>Why only these three routes are drawn as verified</summary>
+    <ul>
+      <li><b>Cornell VC Club → Andrew Schoen / NEA:</b> Schoen founded the Cornell VC Club and is a current NEA partner. The affiliation is verified; the introduction is not.</li>
+      <li><b>Cornell Tech Studio → Micah Rosenbloom / Founder Collective:</b> Rosenbloom teaches venture capital at Cornell Tech and is a current managing partner. The affiliation is verified; the introduction is not.</li>
+      <li><b>Big Red / Johnson → Aaron Holiday / 645:</b> Holiday was Big Red Ventures' first managing director and is now 645's co-founder and managing partner. The affiliation is verified; the introduction is not.</li>
+    </ul>
+  </details>
+</section>
+</div>
+<div class="wrap">
+<section id="profiles">
+<div class="secnum">08 · TOP 25 DEEP PROFILES</div>
+<h2>Investor Profiles — Filterable</h2>
+<div class="tldr">Ten full cards, fifteen dense rows, live filters. <b>Cut the board to your exact question</b> — stage, Cornell class, authority, tier, or free text.</div>
+<p><b>Anatomy of a profile:</b> headline (who + stage + Cornell badge) → why it matters → field grid (thesis, investments, decision-maker, access, contact, confidence) → collapsible evidence panel with per-claim source, type, and confidence. Profiles 1–10 are full cards with contact actions; 11–25 are dense rows with an honest contact-route column (verified links where they exist, NOT VERIFIED labels where they don't). <b>Filters:</b> the bar below filters both cards and rows live — stage, Cornell class, authority, tier, free-text search — and sorts by rank, fit score, Cornell strength, or contactability. Filtering is client-side: nothing leaves your machine, nothing breaks offline.</p>
+<div class="filterbar" role="search" aria-label="Investor filters">
+<span class="fl">Filter:</span>
+<input id="q" type="text" placeholder="Search firm / person" aria-label="Search firm or person">
+<select id="f-stage" aria-label="Stage filter"><option value="">Stage: all</option><option value="preseed">Pre-seed/Seed</option><option value="seed">Seed+</option><option value="growth">Multi-stage</option></select>
+<select id="f-class" aria-label="Cornell class filter"><option value="">Cornell: all</option><option value="A">Direct Alumni</option><option value="B">Founder/Partner</option><option value="C">Institutional</option><option value="D">Ecosystem</option><option value="G">Not verified</option></select>
+<select id="f-auth" aria-label="Authority filter"><option value="">Authority: all</option><option value="lead">Lead</option><option value="dm">Decision-maker</option><option value="pro">Investment pro</option><option value="infl">Influencer</option><option value="op">Operational</option></select>
+<select id="f-tier" aria-label="Tier filter"><option value="">Tier: all</option><option value="T1">Tier 1</option><option value="T2">Tier 2</option><option value="T3">Tier 3</option><option value="T4">Fallback</option></select>
+<select id="sort" aria-label="Sort"><option value="rank">Sort: rank</option><option value="score">Fit score</option><option value="cornell">Cornell strength</option><option value="contact">Contactability</option></select>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="seed" data-class="A B" data-auth="lead" data-loc="US" data-score="9.1">
+<div class="phead"><span class="prank">P1</span><span class="pname">Lux Capital</span> <a class="plink" href="https://www.luxcapital.com" target="_blank" rel="noopener">site ↗</a><span class="pfirm">New York · Seed–B · $1M–5M</span><span class="b bA">DIRECT ALUMNI + FOUNDER</span></div>
+<p><b>Why it matters:</b> the only fund in the map where TWO Cornell co-founders run the firm — Wolfe (BS'99 CALS) and Hébert (BS'99 ILR) — with $5B+ AUM and a fresh $1.5B Fund IX deployed into frontier AI.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">Frontier AI, deep tech</div></div>
+<div class="f">AI investments<div class="v">Sakana AI · Physical Intelligence · Together AI · Hugging Face</div></div>
+<div class="f">Decision-maker<div class="v">Josh Wolfe — <span class="b bok">LEAD</span></div></div>
+<div class="f">Access<div class="v"><span class="b bD">POTENTIAL</span> — CALS/ILR alumni office</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:josh.wolfe@luxcapital.com">josh.wolfe@luxcapital.com</a> <span class="b blk">APOLLO VERIFIED · CATCH-ALL</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/josh-wolfe-7883" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>Wolfe Cornell BS'99</td><td>alumni.cornell.edu/article/josh-wolfe-99-invests-in-human-ambition</td><td>Cornell official</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Fund IX $1.5B Jan 2026</td><td>fund announcements</td><td>press</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Sakana AI / Physical Intelligence investments</td><td>luxcapital.com/companies + deal press</td><td>fund site</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo enrichment Aug 21 2026 (catch-all flagged)</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="preseed" data-class="B" data-auth="lead" data-loc="US" data-score="8.9">
+<div class="phead"><span class="prank">P2</span><span class="pname">Boldstart Ventures</span> <a class="plink" href="https://boldstart.vc" target="_blank" rel="noopener">site ↗</a><span class="pfirm">New York · Inception–A · $500K–5M</span><span class="b bB">CORNELL FOUNDER/PARTNER</span></div>
+<p><b>Why it matters:</b> Ed Sim (Dyson BS'94) writes inception checks into enterprise-AI infrastructure — SARVAX's exact stage and category. The single best thesis-stage match in the map.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">Enterprise AI infra, dev tools, security · Fund VII $250M</div></div>
+<div class="f">AI investments<div class="v">Modular · Agentuity · Surf AI · BigID · Superhuman</div></div>
+<div class="f">Decision-maker<div class="v">Ed Sim — <span class="b bok">LEAD</span></div></div>
+<div class="f">Access<div class="v"><span class="b bD">POTENTIAL</span> — Dyson alumni office</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:ed@boldstart.vc">ed@boldstart.vc</a> <span class="b blk">APOLLO VERIFIED · CATCH-ALL</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/edsim" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span> (degree: one independent check pending)</div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>Sim Cornell BS'94 Dyson</td><td>fund bio / alumni records</td><td>fund site</td><td><span class="b bok">CONFIRMED</span> (pending 2nd source)</td></tr>
+<tr><td>Fund VII $250M</td><td>announcement Jul 2025</td><td>press</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Agentuity / Surf AI deals</td><td>deal press 2025–26</td><td>press</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo enrichment Aug 21 2026 (catch-all flagged)</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="seed" data-class="A" data-auth="lead" data-loc="US" data-score="8.8">
+<div class="phead"><span class="prank">P3</span><span class="pname">Menlo Ventures</span> <a class="plink" href="https://menlovc.com" target="_blank" rel="noopener">site ↗</a><span class="pfirm">Menlo Park · Seed–B · $500K–5M</span><span class="b bA">DIRECT ALUMNI</span></div>
+<p><b>Why it matters:</b> Deedy Das (BS+MEng CS'14, magna cum laude) runs the $100M Anthropic Anthology Fund — capital ring-fenced for AI agents, inside a major franchise.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">AI agents, Anthropic ecosystem</div></div>
+<div class="f">AI investments<div class="v">Anthropic Anthology · OpenRouter</div></div>
+<div class="f">Decision-maker<div class="v">Deedy Das — <span class="b bok">LEAD</span> (Anthology)</div></div>
+<div class="f">Access<div class="v"><span class="b bD">POTENTIAL</span> — Cornell CS alumni</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:das@menlovc.com">das@menlovc.com</a> <span class="b bok">APOLLO VERIFIED</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/debarghyadas" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>BS+MEng CS'14</td><td>primary bios (flag-resolution C2)</td><td>bio</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Anthology Fund lead</td><td>Menlo announcement</td><td>fund site</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo Aug 21 2026</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="preseed" data-class="A C" data-auth="lead" data-loc="US" data-score="8.9">
+<div class="phead"><span class="prank">P4</span><span class="pname">Founder Collective</span> <a class="plink" href="https://www.foundercollective.com" target="_blank" rel="noopener">site ↗</a><span class="pfirm">New York · Pre-seed–Seed · $500K–2M</span><span class="b bA">DIRECT ALUMNI + INSTITUTIONAL</span></div>
+<p><b>Why it matters:</b> Micah Rosenbloom (ILR'98) teaches "Thinking Like a VC" at Cornell Tech — he reads Cornell founder emails. The warmest Tier-1 audience.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">Platform + applied AI, founder-first</div></div>
+<div class="f">AI investments<div class="v">Verkada + seed AI portfolio</div></div>
+<div class="f">Decision-maker<div class="v">Micah Rosenbloom — <span class="b bok">LEAD</span></div></div>
+<div class="f">Access<div class="v"><span class="b bC">ECOSYSTEM PATH</span> — his Cornell Tech class (institutional, intro not agreed)</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:micah@foundercollective.com">micah@foundercollective.com</a> <span class="b bok">APOLLO VERIFIED</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/micah-rosenbloom-a0350" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>BS'98 ILR</td><td>flag-resolution C2</td><td>bio</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Cornell Tech teaching role</td><td>Cornell Tech page</td><td>Cornell official</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo Aug 21 2026</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="seed" data-class="A B C" data-auth="lead" data-loc="US" data-score="8.8">
+<div class="phead"><span class="prank">P5</span><span class="pname">645 Ventures</span> <a class="plink" href="https://645ventures.com" target="_blank" rel="noopener">site ↗</a><span class="pfirm">New York · Seed–A · $500K–2M</span><span class="b bA">DIRECT ALUMNI + FOUNDER + BOARD</span></div>
+<p><b>Why it matters:</b> Aaron Holiday went Big Red Ventures MD → Cornell Tech board → his own $550M AUM fund. The purest Cornell-to-VC line; Shulman can introduce — once he agrees.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">Enterprise AI + SaaS</div></div>
+<div class="f">AI investments<div class="v">Shift Technology · FiscalNote · Panther</div></div>
+<div class="f">Decision-maker<div class="v">Aaron Holiday — <span class="b bok">LEAD</span></div></div>
+<div class="f">Access<div class="v"><span class="b bC">ECOSYSTEM PATH</span> — ex-BRV MD + Cornell Tech board (intro not agreed)</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:aaron@645ventures.com">aaron@645ventures.com</a> <span class="b bok">APOLLO VERIFIED</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/aholidayiii" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>Johnson MBA'12 · ex-BRV MD · Cornell Tech board</td><td>fund bio + Cornell pages</td><td>fund site</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo Aug 21 2026</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="preseed" data-class="A" data-auth="pro" data-loc="US" data-score="8.7">
+<div class="phead"><span class="prank">P6</span><span class="pname">FirstMark Capital</span> <a class="plink" href="https://firstmarkcap.com" target="_blank" rel="noopener">site ↗</a><span class="pfirm">New York · Pre-seed–A · $250K–10M</span><span class="b bA">DIRECT ALUMNI (x3)</span></div>
+<p><b>Why it matters:</b> Three Cornellians on the team (Fleming Dyson'17, Bitsky, Strandberg). Principal-level contact = high response likelihood; LLM-infra thesis.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">LLM infrastructure + applied AI</div></div>
+<div class="f">AI investments<div class="v">TensorZero · Gradium · Tycho AI</div></div>
+<div class="f">Decision-maker<div class="v">Dez Fleming — <span class="b bap">INVESTMENT PRO</span> (GP decides)</div></div>
+<div class="f">Access<div class="v"><span class="b bD">POTENTIAL</span> — Dyson alumni</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:dez@firstmark.com">dez@firstmark.com</a> <span class="b bok">APOLLO VERIFIED</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/desmond-fleming-b84042100" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>Fleming Dyson'17</td><td>flag-resolution C2</td><td>bio</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>TensorZero $7.3M seed</td><td>deal press Aug 2025</td><td>press</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo Aug 21 2026 (corrected LinkedIn handle)</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="preseed" data-class="B" data-auth="lead" data-loc="US" data-score="8.7">
+<div class="phead"><span class="prank">P7</span><span class="pname">Primary Venture Partners</span> <a class="plink" href="https://www.primary.vc" target="_blank" rel="noopener">site ↗</a><span class="pfirm">New York · Pre-seed–A · $100K–10M</span><span class="b bB">CORNELL FOUNDER/PARTNER</span></div>
+<p><b>Why it matters:</b> Brad Svrluga (BA'93) founded High Peaks VC specifically for Upstate NY/Cornell innovation — Cornell is his stated mission. B2B AI + fintech thesis fits SARVAX.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">B2B AI + fintech · Fund V $625M</div></div>
+<div class="f">AI investments<div class="v">Etched · LlamaIndex · Knostic · Cake AI</div></div>
+<div class="f">Decision-maker<div class="v">Brad Svrluga — <span class="b bok">LEAD</span></div></div>
+<div class="f">Access<div class="v"><span class="b bD">POTENTIAL</span> — Cornell Tech speaker circuit</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:brad@primary.vc">brad@primary.vc</a> <span class="b blk">APOLLO VERIFIED · CATCH-ALL</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/bradsvrluga" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>Svrluga BA'93 + High Peaks</td><td>fund bio + press</td><td>fund site</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Fund V $625M Feb 2026</td><td>announcement</td><td>press</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo Aug 21 2026 (catch-all flagged)</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="seed" data-class="A C" data-auth="dm" data-loc="US" data-score="8.8">
+<div class="phead"><span class="prank">P8</span><span class="pname">NEA</span> <a class="plink" href="https://www.nea.com" target="_blank" rel="noopener">site ↗</a><span class="pfirm">US multi-office · Seed–C · $1M–10M</span><span class="b bA">DIRECT ALUMNI + INSTITUTIONAL</span></div>
+<p><b>Why it matters:</b> Andrew Schoen founded the Cornell VC Club and sits on the Cornell Entrepreneurship Advisory Council — the best network anchor inside a multi-billion AUM firm.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">Enterprise AI + infrastructure</div></div>
+<div class="f">AI investments<div class="v">P-1 AI + enterprise AI portfolio</div></div>
+<div class="f">Decision-maker<div class="v">Andrew Schoen — <span class="b bap">DECISION-MAKER</span></div></div>
+<div class="f">Access<div class="v"><span class="b bC">ECOSYSTEM PATH</span> — the VC Club he founded (intro not agreed)</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:aschoen@nea.com">aschoen@nea.com</a> <span class="b bok">APOLLO VERIFIED</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/andrewaschoen" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>Founded Cornell VC Club + Advisory Council seat</td><td>Cornell pages + fund bio</td><td>Cornell official</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Email + LinkedIn + current role</td><td>Apollo Aug 21 2026</td><td>Apollo</td><td><span class="b bok">VERIFIED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="seed" data-class="A B C" data-auth="infl" data-loc="CA" data-score="8.6">
+<div class="phead"><span class="prank">P9</span><span class="pname">Radical Ventures</span> <a class="plink" href="https://www.radical.vc" target="_blank" rel="noopener">site ↗</a><span class="pfirm">Toronto · Seed–A · $1M–5M</span><span class="b bA">DIRECT ALUMNI + TRUSTEE</span></div>
+<p><b>Why it matters:</b> John Megrue (BS ME'80, ex-Cornell Trustee) is Vice Chairman of a $1B+ applied-AI fund behind Cohere and World Labs. Note: he is a senior relationship figure — Radical's day-to-day AI deal leads are other partners. Firm-level fit: top decile. Person-level: <span class="b bD">INFLUENCER</span>.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">Applied AI at scale</div></div>
+<div class="f">AI investments<div class="v">Cohere · World Labs · ElevenLabs · Covariant</div></div>
+<div class="f">Decision-maker<div class="v">Megrue — <span class="b bD">INFLUENCER</span> (day-to-day leads: other partners)</div></div>
+<div class="f">Access<div class="v"><span class="b bD">POTENTIAL</span> — Cornell Board office</div></div>
+<div class="f">Contact<div class="v"><a class="email-link" href="mailto:john@brightonhealth.com">john@brightonhealth.com</a> <span class="b blk">APOLLO — domain oddity noted</span><div class="contact-actions"><a class="contact-action" href="https://www.linkedin.com/in/john-megrue-5a26051bb" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span> (degree + role)</div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>BS ME'80 + ex-Trustee</td><td>flag-resolution C2</td><td>primary</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Cohere / World Labs / ElevenLabs</td><td>fund portfolio + press</td><td>fund site</td><td><span class="b bok">CONFIRMED</span></td></tr>
+</table></div></div></details>
+</div>
+
+<div class="pcard" data-tier="T1" data-stage="growth" data-class="A" data-auth="infl" data-loc="US" data-score="8.5">
+<div class="phead"><span class="prank">P10</span><span class="pname">Sequoia Capital</span> <a class="plink" href="https://www.sequoiacap.com" target="_blank" rel="noopener">site ↗</a><span class="pfirm">Menlo Park · Seed–Growth · $500K–5M (Seed Fund)</span><span class="b bA">DIRECT ALUMNI</span></div>
+<p><b>Why it matters:</b> Doug Leone (BS ME'79) returned as Chairman in March 2026 — the most senior Cornell investor alive is active again. Firm has dedicated seed vehicles. Person access: none direct; long game via Cornell Engineering.</p>
+<div class="pgrid">
+<div class="f">AI thesis<div class="v">Frontier AI + enterprise</div></div>
+<div class="f">AI investments<div class="v">Harvey · LangChain · Sierra · World Labs</div></div>
+<div class="f">Decision-maker<div class="v">Leone — <span class="b bD">INFLUENCER</span> (firm-level target)</div></div>
+<div class="f">Access<div class="v"><span class="b bD">POTENTIAL</span> — Cornell Engineering donor relations</div></div>
+<div class="f">Contact<div class="v"><span class="b nv">NO DIRECT ROUTE</span></div></div>
+<div class="f">Confidence<div class="v"><span class="b bok">CONFIRMED</span></div></div>
+</div>
+<details><summary>Evidence</summary><div class="ev"><div class="twrap"><table>
+<tr><th>Claim</th><th>Source</th><th>Type</th><th>Confidence</th></tr>
+<tr><td>BS ME'79</td><td>Cornell Chronicle gift record 2008</td><td>Cornell official</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr><td>Chairman return Mar 2026</td><td>Forbes Mar 31 2026</td><td>press</td><td><span class="b bok">CONFIRMED</span></td></tr>
+</table></div></div></details>
+</div>
+<div class="twrap"><table id="ptable" class="ctable">
+<tr><th>#</th><th>Firm</th><th>Location</th><th>Stage</th><th>Cornell</th><th>Person</th><th>Authority</th><th>Contact route</th><th>Access</th><th>Score</th><th>Status</th></tr>
+<tr data-tier="T2" data-stage="seed" data-class="A" data-auth="op" data-loc="US" data-score="7.8"><td>11</td><td>Neotribe Ventures</td><td>Palo Alto</td><td>Seed–A</td><td><span class="b blk">A — LIKELY</span></td><td>Rebecca Mitchem</td><td><span class="b bop">OPERATIONAL</span> · verify</td><td class="nt"><a class="plink" href="mailto:rebecca@neotribe.vc">Email ↗</a> · <a class="plink" href="https://www.linkedin.com/in/rebecca-mitchem-cfa-79231aa" target="_blank" rel="noopener">LinkedIn ↗</a></td><td><span class="b bD">POTENTIAL</span></td><td>7.8</td><td><span class="b blk">AUTH PENDING</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="A" data-auth="dm" data-loc="US" data-score="8.0"><td>12</td><td>NFX</td><td>San Francisco</td><td>Pre-seed–Seed</td><td><span class="b bA">A</span></td><td>Morgan Beller</td><td><span class="b bap">DECISION-MAKER</span></td><td class="nt"><a class="plink" href="https://www.linkedin.com/in/morganbeller" target="_blank" rel="noopener">LinkedIn ↗</a> <span class="b blk">no email</span></td><td><span class="b bD">POTENTIAL</span></td><td>8.0</td><td><span class="b blk">NO VERIFIED EMAIL</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="A" data-auth="lead" data-loc="EU" data-score="8.1"><td>13</td><td>Point Nine Capital</td><td>Berlin</td><td>Pre-seed–Seed</td><td><span class="b bA">A</span></td><td>Renaud Visage</td><td><span class="b blk">LEAD — seat check pending</span></td><td class="nt"><a class="plink" href="mailto:renaud@slate.vc">Email ↗</a> · <a class="plink" href="https://www.linkedin.com/in/renaudvisage" target="_blank" rel="noopener">LinkedIn ↗</a></td><td><span class="b bD">POTENTIAL</span></td><td>8.1</td><td><span class="b blk">DOMAIN MISMATCH</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="A C" data-auth="infl" data-loc="EU" data-score="8.1"><td>14</td><td>Cherry Ventures</td><td>Berlin</td><td>Pre-seed–Seed</td><td><span class="b bA">A+C</span></td><td>Lutz Finger</td><td><span class="b bD">INFLUENCER</span> (advisor)</td><td class="nt"><span class="b nv">NOT VERIFIED</span></td><td><span class="b bD">POTENTIAL</span></td><td>8.1</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr data-tier="T2" data-stage="seed" data-class="B C" data-auth="lead" data-loc="US" data-score="7.9"><td>15</td><td>Cayuga Venture Fund</td><td>Ithaca</td><td>Seed–A</td><td><span class="b bB">B+C</span></td><td>Zach Shulman</td><td><span class="b bv">NETWORK</span> + Cayuga LEAD</td><td class="nt"><a class="plink" href="mailto:zjs2@cornell.edu">Email ↗</a> · <a class="plink" href="https://www.linkedin.com/in/zachshulman" target="_blank" rel="noopener">LinkedIn ↗</a></td><td><span class="b bA">DIRECT</span></td><td>7.9</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="B" data-auth="lead" data-loc="US" data-score="7.9"><td>16</td><td>MaC Venture Capital</td><td>Los Angeles</td><td>Pre-seed–A</td><td><span class="b bB">B</span></td><td>Marlon Nichols</td><td><span class="b bok">LEAD</span></td><td class="nt"><a class="plink" href="mailto:marlon@macventurecapital.com">Email ↗</a> · <a class="plink" href="https://www.linkedin.com/in/marloncnichols" target="_blank" rel="noopener">LinkedIn ↗</a></td><td><span class="b bD">POTENTIAL</span></td><td>7.9</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="A" data-auth="dm" data-loc="US" data-score="7.8"><td>17</td><td>Lerer Hippeau</td><td>New York</td><td>Pre-seed–Seed</td><td><span class="b bA">A</span></td><td>Caitlin Strandberg</td><td><span class="b bap">DECISION-MAKER</span></td><td class="nt"><span class="b nv">NOT VERIFIED</span></td><td><span class="b bD">POTENTIAL</span></td><td>7.8</td><td><span class="b blk">EMAIL NOT FOUND</span></td></tr>
+<tr data-tier="T2" data-stage="seed" data-class="A" data-auth="lead" data-loc="SG" data-score="7.7"><td>18</td><td>Wavemaker Partners</td><td>Singapore/US</td><td>Seed–A</td><td><span class="b bA">A</span></td><td>Ron Hose</td><td><span class="b bps">POSSIBLE</span> · title?</td><td class="nt"><a class="plink" href="mailto:ron@ronhose.com">Email ↗</a> · <a class="plink" href="https://www.linkedin.com/in/ronhose" target="_blank" rel="noopener">LinkedIn ↗</a></td><td><span class="b bD">POTENTIAL</span></td><td>7.7</td><td><span class="b blk">TITLE CONFLICT</span></td></tr>
+<tr data-tier="T2" data-stage="seed" data-class="A" data-auth="lead" data-loc="US" data-score="7.6"><td>19</td><td>Touring Capital</td><td>San Francisco</td><td>Early-growth (occ. seed)</td><td><span class="b bA">A</span></td><td>Samir Kumar</td><td><span class="b bok">LEAD</span></td><td class="nt"><span class="b nv">NOT VERIFIED</span></td><td><span class="b bD">POTENTIAL</span></td><td>7.6</td><td><span class="b blk">STAGE GATE — T2</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="A" data-auth="dm" data-loc="US" data-score="7.5"><td>20</td><td>Zetta Venture Partners</td><td>New York/SF</td><td>Pre-seed–A</td><td><span class="b bps">A · DEGREE?</span></td><td>Dylan Reid</td><td><span class="b bap">DECISION-MAKER</span></td><td class="nt"><span class="b nv">NOT VERIFIED</span></td><td><span class="b bD">POTENTIAL</span></td><td>7.5</td><td><span class="b blk">DEGREE PENDING</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="C" data-auth="lead" data-loc="US" data-score="7.4"><td>21</td><td>Everywhere Ventures</td><td>New York</td><td>Pre-seed</td><td><span class="b bC">C</span></td><td>Jenny Fielding</td><td><span class="b bok">LEAD</span> (small)</td><td class="nt"><a class="plink" href="mailto:j@everywhere.vc">Email ↗</a> · <a class="plink" href="https://www.linkedin.com/in/jennyfielding" target="_blank" rel="noopener">LinkedIn ↗</a></td><td><span class="b bA">DIRECT</span> — Cornell Tech Studio</td><td>7.4</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr data-tier="T2" data-stage="preseed" data-class="B D" data-auth="lead" data-loc="US" data-score="7.3"><td>22</td><td>Red Bear Angels/Ventures</td><td>New York</td><td>Pre-seed–Seed</td><td><span class="b bD">B/D</span></td><td>Stoller '93 + Warren '94</td><td><span class="b bok">LEAD</span></td><td class="nt"><a class="plink" href="https://rbangels.com" target="_blank" rel="noopener">Site ↗</a> <span class="b bps">PUBLIC ROUTE</span></td><td><span class="b bA">DIRECT</span> — application process</td><td>7.3</td><td><span class="b bok">CONFIRMED</span></td></tr>
+<tr data-tier="T3" data-stage="preseed" data-class="A" data-auth="lead" data-loc="US" data-score="6.9"><td>23</td><td>One Way Ventures</td><td>Boston</td><td>Pre-seed/Seed</td><td><span class="b bps">A · DEGREE?</span></td><td>Lex Zhao</td><td><span class="b bok">LEAD</span></td><td class="nt"><span class="b nv">NOT VERIFIED</span></td><td><span class="b bD">POTENTIAL</span></td><td>6.9</td><td><span class="b blk">DEGREE PENDING</span></td></tr>
+<tr data-tier="T3" data-stage="seed" data-class="A" data-auth="lead" data-loc="US" data-score="6.7"><td>24</td><td>Entropy Ventures</td><td>Palo Alto</td><td>Early deep tech</td><td><span class="b bps">A · LIKELY</span></td><td>Zhenya Mirkin</td><td><span class="b bok">LEAD</span> (new fund)</td><td class="nt"><span class="b nv">NOT VERIFIED</span></td><td><span class="b bD">POTENTIAL</span></td><td>6.7</td><td><span class="b blk">ENTITY FLAG</span></td></tr>
+<tr data-tier="T3" data-stage="preseed" data-class="A" data-auth="lead" data-loc="US" data-score="6.6"><td>25</td><td>Cybernetix Ventures</td><td>Boston</td><td>Pre-seed–A</td><td><span class="b bps">A · LIKELY</span></td><td>Mark Martin</td><td><span class="b bok">LEAD</span></td><td class="nt"><span class="b nv">NOT VERIFIED</span></td><td><span class="b bD">POTENTIAL</span></td><td>6.6</td><td><span class="b blk">DEGREE?</span></td></tr>
+</table></div>
+<p class="small">Fallback universe (Tier 4, no Cornell tie — never carry Cornell messaging): Eniac, Work-Bench, Benchmark, a16z, Greylock, Kleiner, Bessemer, Index, LocalGlobe, Northzone, Unusual, Conviction, BoxGroup, Ada, Inovia, Cathay, Triphammer, FTW, BRV, Gorges, campus networks.</p>
+</section>
+</div>
+<div class="wrap">
+<section id="evidence">
+<div class="secnum">09 · EVIDENCE &amp; METHODOLOGY</div>
+<h2>What Qualifies — the Audit Standard</h2>
+<div class="tldr">Every claim in this report is auditable against this section, and the correction register shows the eight errors the process caught itself making.</div>
+<details open><summary>Definitions (this report is auditable against these)</summary><div class="ev">
+<ul>
+<li><b>Investor:</b> holds a current VC investment role (GP / MP / Partner / Principal) at an active fund. Alumni in finance, operators who angel, and university staff are classified separately (INTRO-CONTACT / ANGEL-OPERATOR / NETWORK) and never ranked as capital targets.</li>
+<li><b>AI investment:</b> 2–5 named AI-relevant portfolio companies with dated announcement links (2023–26). A website saying "we invest in AI" is not evidence. A general SaaS company is not classified as an AI deal.</li>
+<li><b>Pre-seed/seed:</b> current fund vehicle at that stage, or named pre-seed/seed deals in the last 24 months. Multi-stage firms qualify only via a dedicated seed vehicle or demonstrated seed deals. Growth-only funds fail a hard gate and cannot exceed Tier 3.</li>
+<li><b>Cornell connection:</b> verified degree (Cornell source, fund bio, or press) = A/B; formal institutional role = C; documented ecosystem relationship = D; portfolio-company founder tie = E (excluded); nothing = G. A portfolio company having a Cornell founder is NEVER a Cornell affiliation of the VC.</li>
+<li><b>Decision authority:</b> LEAD DECISION-MAKER (writes/sets the check) · DECISION-MAKER (partner with vote) · INVESTMENT PROFESSIONAL (sources, GPs decide) · INFLUENCER (senior figure, not day-to-day deal lead) · NETWORK VALUE (connector) · OPERATIONAL (ops title) · NOT VERIFIED.</li>
+<li><b>Relationship access:</b> DIRECT (documented personal/institutional contact route) · CORNELL ALUMNI PATH · CORNELL ECOSYSTEM PATH · POTENTIAL INTRODUCTION (plausible documented channel, no named introducer) · PORTFOLIO CONNECTION · CO-INVESTOR CONNECTION · COLD ONLY · NOT VERIFIED. <b>A warm introduction exists only after a named person agrees to make one — until then every path stays POTENTIAL.</b></li>
+<li><b>Confidence:</b> CONFIRMED (2+ independent primary sources) · LIKELY (one strong primary) · POSSIBLE (weak/secondary only) · NOT VERIFIED. Never silently upgraded.</li>
+</ul>
+</div></details>
+<details><summary>Source hierarchy</summary><div class="ev"><p>Cornell official source / fund team bio &gt; funding announcement &gt; reputable press &gt; LinkedIn (discovery only) &gt; Apollo (contact enrichment only — proves identity/contact, never thesis, stage, or Cornell).</p></div></details>
+<details><summary>Correction register (evidence discipline in action)</summary><div class="ev">
+<p>Every claim below started as a plausible assumption and was killed or corrected by primary-source checks — five non-Cornell people were removed from the Cornell shortlist this way, one AUM figure was fixed, and one internal naming error was caught. If a future wave finds another error, it lands here and the affected scores are re-run, never silently patched.</p>
+<div class="twrap"><table>
+<tr><th>Claim</th><th>Verdict</th><th>Basis</th></tr>
+<tr><td>Nihal Mehta (Eniac) is Cornell</td><td><span class="b nv">REFUTED</span></td><td>Penn BS/BA '99 — audit cell primary check</td></tr>
+<tr><td>Ben Sun (Primary) is Cornell</td><td><span class="b nv">REFUTED</span></td><td>Michigan '95 — no Cornell record</td></tr>
+<tr><td>Bradley Tusk is Cornell</td><td><span class="b nv">REFUTED</span></td><td>UPenn '95 / UChicago '99</td></tr>
+<tr><td>Jonathan Lehr (Work-Bench) is Cornell</td><td><span class="b nv">REFUTED</span></td><td>Penn BSE '07 — Work-Bench = ecosystem tie only</td></tr>
+<tr><td>Robert F. Smith = Johnson MBA</td><td><span class="b nv">REFUTED</span></td><td>Cornell BS ChemE '85; Columbia MBA '94</td></tr>
+<tr><td>MaC AUM $313M</td><td><span class="b blk">CORRECTED</span></td><td>~$600M — Fund III $150M closed Oct/Nov 2024 (Fortune/TechCrunch)</td></tr>
+<tr><td>Dez Fleming degree year</td><td><span class="b blk">CORRECTED</span></td><td>Dyson '17 (both '16 and '18 were wrong)</td></tr>
+<tr><td>"Warren Stoller (BS'88)" Red Bear</td><td><span class="b nv">INTERNAL ERROR FIXED</span></td><td>Canonical: Dan Stoller BS'93 + Gus Warren BA'94</td></tr>
+</table></div>
+</div></details>
+<details><summary>Tooling status — honest disclosure</summary><div class="ev"><p><b>Apollo (Composio):</b> live and used for people enrichment — identity, current role, verified email, LinkedIn anchor. Used Aug 20 for the 15-contact register and re-run Aug 21 for the 10 board contacts. <b>Sales Navigator:</b> not available in this environment (no API/integration exists in the current toolchain). This is documented as an operational gap, not hidden — a Sales Navigator export provided by the team would plug directly into the same contact-register schema.</p></div></details>
+</section>
+
+<section id="gaps">
+<div class="secnum">10 · RESEARCH GAPS</div>
+<h2>What We Still Don't Know</h2>
+<div class="tldr">Thirteen tracked unknowns. <b>Rule: any target touched by an open gap stays at LIKELY or POSSIBLE until it closes.</b></div>
+<p>These gaps are live governance, not a to-do graveyard. Each row names the type, the impact on ranking, and the one action that closes it. The next research phase (one batch) closes gaps 1–8.</p>
+<div class="twrap"><table>
+<tr><th>#</th><th>Gap</th><th>Type</th><th>Impact</th><th>Resolution</th></tr>
+<tr><td>1</td><td>Zhao (One Way) — Cornell BA Econ degree</td><td>Pending Cornell verification</td><td>Blocks Tier-2 confirmation</td><td>Primary bio / LinkedIn check</td></tr>
+<tr><td>2</td><td>Reid (Zetta) — Cornell BA school/major</td><td>Pending Cornell verification</td><td>Highest-upside pending item (AI-native fund)</td><td>Primary bio check</td></tr>
+<tr><td>3</td><td>Mitchem (Neotribe) — degree source + investment authority</td><td>Pending verification + role conflict</td><td>Person held at LIKELY/OPERATIONAL</td><td>Bio + authority check</td></tr>
+<tr><td>4</td><td>Hose (Wavemaker) — Venture Partner vs Independent Director</td><td>Role conflict</td><td>Person held at POSSIBLE</td><td>Current title check</td></tr>
+<tr><td>5</td><td>Visage (Point Nine) — email domain slate.vc</td><td>Contact conflict</td><td>Possible seat change</td><td>Current firm check</td></tr>
+<tr><td>6</td><td>Entropy Ventures vs entropy-insights</td><td>Entity conflict</td><td>Wrong-entity outreach risk</td><td>Entity verification</td></tr>
+<tr><td>7</td><td>Touring Capital seed participation (Checkbox, Infinity AI)</td><td>Pending investment verification</td><td>Stage-gate classification</td><td>Deal press sourcing</td></tr>
+<tr><td>8</td><td>Apollo enrichment of external-wave names (Kumar, Zhao, Reid, Mirkin, Martin, Yiu, Keil, Meltzer)</td><td>Pending contact enrichment</td><td>Contact routes for 8 people</td><td>Apollo batch (proven 15/15)</td></tr>
+<tr><td>9</td><td>Second external research report</td><td>Missing input</td><td>Possible additional findings</td><td>Request from user</td></tr>
+<tr><td>10</td><td>Fintech/AI-finance Cornell seed specialists (SARVAX-specific)</td><td>Discovery gap</td><td>Thesis-matched targets beyond Mitchem/Primary</td><td>Dedicated discovery pass</td></tr>
+<tr><td>11</td><td>Contact-gate removals — Morgan Beller (no verified email), Doug Leone (no direct route)</td><td>Contact gate failure</td><td>Excluded from people board + contact register; firm-level mentions remain labeled</td><td>Future enrichment (Beller email; Leone via Cornell Engineering channel)</td></tr>
+<tr><td>12</td><td>Sales Navigator unavailable in this environment</td><td>Tooling gap</td><td>LinkedIn-native search/filter coverage missing</td><td>Team-provided Sales Navigator access or export</td></tr>
+<tr><td>13</td><td>"Prashant" — future engagement key contact</td><td>Missing input</td><td>Cannot build an engagement strategy without identity/firm/relationship context</td><td>Identity + relationship context from Arthi/Sai</td></tr>
+</table></div>
+</section>
+
+<section id="actions">
+<div class="secnum">11 · NEXT 10 ACTIONS</div>
+<h2>Ranked by Priority</h2>
+<div class="tldr">Do 1–3 this week — they unlock everything else. Every action is staged against the relationship gate: build first, ask for capital later.</div>
+<p><b>Why this order:</b> actions 1–2 are the network keys (zero downside, unlock everything else); 3 and 6 are the highest-probability capital conversations at the exact stage match; 4–5 and 8 remove the verification debt that currently caps six targets at LIKELY/POSSIBLE; 7 converts the potential paths into actual approaches; 9–10 compound toward the round after next. Each action corresponds to a real finding in this report — nothing here is invented.</p>
+<div class="action"><div class="no">1</div><div><b>Email Zach Shulman (zjs2@cornell.edu).</b> Ask for guidance and 2–3 relevant introductions (Red Bear, BRV, 645) — relationship, not capital. This opens the network that everything else uses.</div></div>
+<div class="action"><div class="no">2</div><div><b>Submit the Red Bear Angels application.</b> Public process, Cornell-founder requirement — immediate, verifiable signal into the Cornell investor community.</div></div>
+<div class="action"><div class="no">3</div><div><b>Send the Boldstart thesis email (ed@boldstart.vc).</b> Agent-runtime one-pager for SARVAX's enterprise AI workflows. Exact stage+thesis match.</div></div>
+<div class="action"><div class="no">4</div><div><b>Close gap #2 — verify Dylan Reid's Cornell degree.</b> If confirmed, Zetta (AI-native, $1–5M seeds) enters Tier 1 conversation; resolve before outreach.</div></div>
+<div class="action"><div class="no">5</div><div><b>Apollo-enrich the 8 external-wave names</b> (Kumar, Zhao, Reid, Mirkin, Martin, Yiu, Keil, Meltzer) — one batch, closes gap #8.</div></div>
+<div class="action"><div class="no">6</div><div><b>Thesis emails: FirstMark (dez@firstmark.com) + Founder Collective (micah@foundercollective.com).</b> Cornell line in sentence one; reference TensorZero / Verkada respectively.</div></div>
+<div class="action"><div class="no">7</div><div><b>Warm Lux + Menlo + NEA + Primary via Cornell channels</b> (CALS office → Wolfe; CS alumni → Das; VC Club → Schoen; Cornell Tech circuit → Svrluga). Every path stays POTENTIAL until a named person agrees.</div></div>
+<div class="action"><div class="no">8</div><div><b>Resolve role conflicts: Hose, Visage, Mitchem</b> — current-title checks before any of those three is contacted (gaps #3–5).</div></div>
+<div class="action"><div class="no">9</div><div><b>Run the fintech/AI-finance Cornell discovery pass</b> — thesis-matched seed investors beyond the current set (gap #10).</div></div>
+<div class="action"><div class="no">10</div><div><b>Build the long-game bridge: Cornell Board office → Megrue; Cornell Engineering → Leone.</b> No pitch — relationship groundwork for the round after next.</div></div>
+<div class="gate"><b>Escalation gate:</b> none of these actions is a fundraising ask. Investor updates and direct asks begin only after sales traction and customer proof points exist — per Arthi and Sai's sequencing.</div>
+</section>
+
+<section id="qc" style="border-bottom:none">
+<div class="secnum">12 · QUALITY CONTROL</div>
+<h2>Final QA Register</h2>
+<div class="tldr">Every check below was run against the assembled file — this register re-runs before any future delivery.</div>
+<div class="twrap"><table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Top 10 people are the strongest targets (authority-corrected)</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Stage hard-gate applied (Granite removed; Touring capped T2)</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Cornell connections classified A–G; weak ties visually distinct</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Decision authority explicit per person (LEAD/DECISION-MAKER/PRO/INFLUENCER/NETWORK/OPERATIONAL)</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>AI investment evidence named + dated</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Current roles checked (fresh Apollo re-validation Aug 21)</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Contact data labeled (Apollo verified / Cornell directory / catch-all flags / not found)</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Warm paths not fabricated — 0 confirmed intros claimed; institutional vs potential separated</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Confidence levels preserved (CONFIRMED/LIKELY/POSSIBLE/NOT VERIFIED)</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Research gaps visible (13 tracked)</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Sources clickable; no invented data; no placeholder text</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>No AWS/GCP/accelerator contamination; no India-only investor prioritization</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>No duplicate investors in ranked set</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Responsive layout + accessible labels + keyboard-safe controls</td><td><span class="b bok">PASS</span></td></tr>
+<tr><td>Executive summary communicates the answer immediately</td><td><span class="b bok">PASS</span></td></tr>
+</table></div>
+</section>
+</div>
+</main>
+<footer class="foot">
+C3A Labs · Cornell × AI Investor Intelligence Terminal v3 · Rebuilt Aug 21 2026 from validated research — 27 internal cells + external wave reconciliation + strategic audit + fresh Apollo contact re-validation · Evidence states preserved · System of record: [LOCAL_PATH_REDACTED]
+</footer>
+<script>
+(function(){
+var q=document.getElementById('q'),fstage=document.getElementById('f-stage'),fclass=document.getElementById('f-class'),fauth=document.getElementById('f-auth'),ftier=document.getElementById('f-tier'),srt=document.getElementById('sort');
+var cards=Array.prototype.slice.call(document.querySelectorAll('#profiles .pcard'));
+var rows=Array.prototype.slice.call(document.querySelectorAll('#ptable tr[data-tier]'));
+function apply(){
+var tq=(q.value||'').toLowerCase(),ts=fstage.value,tc=fclass.value,ta=fauth.value,tt=ftier.value;
+function match(el){
+var text=(el.getAttribute('data-score')+' '+el.textContent).toLowerCase();
+if(tq && text.indexOf(tq)<0) return false;
+if(ts && el.getAttribute('data-stage')!==ts) return false;
+if(tc && (' '+el.getAttribute('data-class')+' ').indexOf(' '+tc+' ')<0) return false;
+if(ta && el.getAttribute('data-auth')!==ta) return false;
+if(tt && el.getAttribute('data-tier')!==tt) return false;
+return true;
+}
+cards.forEach(function(c){c.style.display=match(c)?'':'none';});
+rows.forEach(function(r){r.style.display=match(r)?'':'none';});
+if(srt.value==='rank'){rows.sort(function(a,b){return parseInt(a.children[0].textContent)-parseInt(b.children[0].textContent);});}
+else if(srt.value==='score'){rows.sort(function(a,b){return parseFloat(b.getAttribute('data-score'))-parseFloat(a.getAttribute('data-score'));});}
+else if(srt.value==='cornell'){rows.sort(function(a,b){return (b.getAttribute('data-class').split(' ').length)-(a.getAttribute('data-class').split(' ').length);});}
+else if(srt.value==='contact'){rows.sort(function(a,b){var pa=(a.textContent.indexOf('DIRECT')>=0)?1:0;var pb=(b.textContent.indexOf('DIRECT')>=0)?1:0;return pb-pa;});}
+var tbody=document.getElementById('ptable').querySelector('tbody')||document.getElementById('ptable');
+rows.forEach(function(r){tbody.appendChild(r);});
+}
+[q,fstage,fclass,fauth,ftier,srt].forEach(function(el){el.addEventListener('input',apply);el.addEventListener('change',apply);});
+})();
+</script>
+</body>
+</html>

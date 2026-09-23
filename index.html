@@ -3,402 +3,97 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A source-checked investor screen for Fin9: a U.S./New York company and founder with an India-based operating team.">
+  <meta name="description" content="Choose the MIT or Cornell investor-intelligence report. Each opens as a separate report.">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="data:,">
   <title>ARTHI&lt;&gt;SATYAM-MITXCORNEL VC LIST</title>
   <style>
     :root {
-      --bg: #f8f9fa;
+      --bg: #f5f5f7;
       --paper: #ffffff;
       --ink: #111111;
-      --muted: #55565a;
-      --faint: #707176;
-      --line: #d1d5db;
-      --soft: #e7e8eb;
-      --dark: #0b0c0e;
-      --green: #1f7a45;
-      --amber: #8a5200;
-      --radius: 14px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --muted: #5a5b60;
+      --line: #d8d9dd;
+      --line-strong: #aeb0b6;
+      --radius: 16px;
       --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.62 var(--sans); }
-    a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-    a:hover { text-decoration-thickness: 2px; }
-    a:focus-visible, summary:focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; border-radius: 4px; }
-    .skip { position: absolute; left: 12px; top: -60px; z-index: 20; padding: 10px 14px; background: var(--dark); color: #fff; }
-    .skip:focus { top: 12px; }
-    .topbar { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--soft); }
-    .nav-wrap { max-width: 1180px; margin: 0 auto; min-height: 58px; padding: 8px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    .brand { font: 700 11px/1.3 var(--mono); letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; }
-    nav { display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: thin; }
-    nav a { padding: 7px 11px; border: 1px solid transparent; border-radius: 999px; font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap; }
-    nav a:hover { border-color: var(--line); background: #fff; }
-    main { max-width: 1180px; margin: 0 auto; padding: 34px 24px 72px; }
-    .hero { padding: 38px 40px 34px; background: var(--dark); color: #fff; border-radius: 18px; }
-    .kicker, .eyebrow, .mono { font-family: var(--mono); letter-spacing: .075em; text-transform: uppercase; }
-    .kicker { margin: 0 0 15px; color: #c5c7cb; font-size: 11px; }
-    h1 { max-width: 920px; margin: 0; font-size: clamp(2.2rem, 5.4vw, 4.8rem); line-height: .99; letter-spacing: -.055em; font-weight: 700; overflow-wrap: anywhere; }
-    h1 span { display: block; color: #d9dade; }
-    .lede { max-width: 800px; margin: 22px 0 0; color: #e1e2e5; font-size: clamp(1rem, 1.8vw, 1.22rem); line-height: 1.5; }
-    .hero-note { margin: 18px 0 0; max-width: 850px; color: #b9bbc0; font-size: 13px; }
-    .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 18px 0 0; }
-    .stat { min-height: 96px; padding: 17px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
-    .stat strong { display: block; font: 700 27px/1.05 var(--mono); letter-spacing: -.05em; }
-    .stat span { display: block; margin-top: 8px; color: var(--muted); font: 10px/1.4 var(--mono); letter-spacing: .075em; text-transform: uppercase; }
-    .context { margin: 14px 0 0; padding: 15px 18px; border-left: 3px solid var(--ink); background: #fff; color: var(--muted); font-size: 14px; }
-    .context strong { color: var(--ink); }
-    .section { margin-top: 62px; scroll-margin-top: 82px; }
-    .section-head { max-width: 790px; margin: 0 0 22px; }
-    .eyebrow { margin: 0 0 7px; color: var(--faint); font-size: 10px; }
-    h2 { margin: 0; font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.08; letter-spacing: -.04em; }
-    .section-intro { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
-    .priority { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .investor { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; min-width: 0; }
-    .investor.feature { border-top: 3px solid var(--ink); }
-    .investor h3 { margin: 0; font-size: 20px; line-height: 1.2; letter-spacing: -.025em; }
-    .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0 15px; }
-    .tag { display: inline-flex; align-items: center; min-height: 25px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font: 10px/1.2 var(--mono); letter-spacing: .035em; text-transform: uppercase; }
-    .tag.primary { background: var(--dark); border-color: var(--dark); color: #fff; }
-    .tag.gate { border-color: #d7b67e; color: var(--amber); background: #fffaf1; }
-    .facts { margin: 0; }
-    .facts div { margin-top: 10px; }
-    .facts dt { display: inline; color: var(--faint); font: 10px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
-    .facts dd { display: inline; margin: 0 0 0 6px; color: #292a2d; font-size: 13px; line-height: 1.55; }
-    .cite { display: inline-block; margin-left: 2px; color: #4b5563; font: 10px/1 var(--mono); text-decoration: none; vertical-align: super; }
-    .cite:hover { color: #111; text-decoration: underline; }
-    .subhead { margin: 30px 0 14px; padding-top: 17px; border-top: 1px solid var(--line); font: 700 11px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-    .route-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .route { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; min-width: 0; }
-    .route h3 { margin: 0; font-size: 18px; line-height: 1.25; letter-spacing: -.02em; }
-    .route p { margin: 10px 0 0; color: #303136; font-size: 13px; }
-    .route .gate-line { color: var(--amber); }
-    .process { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 420px); gap: 22px; align-items: center; }
-    .process-card { padding: 24px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
-    .process-card p { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
-    .process-card p:last-child { margin-bottom: 0; }
-    .process-card strong { color: var(--ink); }
-    .diagram { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; }
-    .diagram rect { fill: #fff; stroke: #b8bbc1; stroke-width: 1.4; }
-    .diagram .line { stroke: #56585e; stroke-width: 1.5; fill: none; }
-    .diagram .title { fill: #111; font: 700 13px var(--sans); }
-    .diagram .sub { fill: #55565a; font: 11px var(--sans); }
-    .gates { margin: 0; padding-left: 21px; }
-    .gates li { margin: 9px 0; color: #303136; font-size: 14px; }
-    .sources-wrap { margin-top: 20px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
-    .sources-wrap summary { padding: 17px 20px; cursor: pointer; font: 700 12px/1.5 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
-    .sources-wrap details[open] summary { border-bottom: 1px solid var(--soft); }
-    .sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; margin: 0; padding: 12px 24px 24px 48px; }
-    .sources li { padding: 12px 4px 12px 2px; border-bottom: 1px solid #eceef0; font-size: 12px; }
-    .sources li::marker { color: var(--faint); font: 11px var(--mono); }
-    .source-title { font-weight: 700; }
-    .source-url { display: block; margin-top: 4px; color: #4d5158; overflow-wrap: anywhere; font: 10px/1.5 var(--mono); }
-    blockquote { margin: 8px 0 0; padding-left: 10px; border-left: 2px solid var(--soft); color: var(--muted); font-size: 11px; line-height: 1.5; }
-    .method { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
-    .method div { padding: 16px; background: #f1f2f4; border: 1px solid #e1e3e6; border-radius: 10px; }
-    .method strong { display: block; font: 700 10px/1.4 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
-    .method p { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
-    footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
-    footer p { margin: 5px 0; }
-    .stamp { color: var(--faint); font: 10px/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
-    @media (max-width: 768px) {
-      .nav-wrap { align-items: flex-start; flex-direction: column; padding: 9px 16px 8px; gap: 5px; }
-      nav { width: 100%; padding-bottom: 2px; }
-      nav a { min-height: 36px; display: inline-flex; align-items: center; }
-      main { padding: 18px 14px 48px; }
-      .hero { padding: 27px 21px 24px; border-radius: 14px; }
-      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
-      .stat { min-height: 82px; padding: 14px; }
-      .priority, .route-grid, .process, .method { grid-template-columns: 1fr; }
-      .section { margin-top: 48px; }
-      .investor, .route { padding: 18px; }
-      .process-card { padding: 19px; }
-      .diagram { max-width: 380px; }
-      .sources { grid-template-columns: 1fr; padding-left: 42px; }
+    html { min-width: 320px; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid #2457d6; outline-offset: 4px; }
+    .skip { position: absolute; left: 14px; top: -70px; z-index: 2; padding: 11px 14px; background: var(--ink); color: #fff; border-radius: 5px; }
+    .skip:focus { top: 14px; }
+    header { border-bottom: 1px solid var(--line); background: var(--paper); }
+    .header-inner, main, footer { width: min(1060px, calc(100% - 40px)); margin-inline: auto; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; min-height: 58px; gap: 20px; }
+    .brand { font: 700 11px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .count { color: var(--muted); font: 10px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    main { padding: clamp(36px, 7vw, 76px) 0 64px; }
+    .eyebrow { margin: 0 0 14px; color: var(--muted); font: 700 11px/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+    h1 { max-width: 900px; margin: 0; font-size: clamp(2.15rem, 6vw, 4.4rem); line-height: 1.02; letter-spacing: -.06em; font-weight: 700; overflow-wrap: anywhere; }
+    .intro { max-width: 690px; margin: 20px 0 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.2rem); }
+    .reports { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: clamp(34px, 6vw, 62px); }
+    .report-card { min-width: 0; min-height: 310px; display: flex; flex-direction: column; padding: clamp(22px, 3.5vw, 32px); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; transition: border-color .16s ease, transform .16s ease; }
+    .report-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font: 700 10px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .card-index { color: var(--ink); }
+    .rule { height: 1px; background: var(--line); margin: 22px 0 25px; }
+    .report-card h2 { margin: 0; font-size: clamp(1.55rem, 2.6vw, 2.2rem); line-height: 1.1; letter-spacing: -.045em; }
+    .report-card p { margin: 14px 0 0; max-width: 440px; color: var(--muted); font-size: 14px; }
+    .open { display: inline-flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: auto; padding-top: 30px; color: var(--ink); font-size: 13px; font-weight: 700; }
+    .arrow { font-size: 20px; line-height: 1; transition: transform .16s ease; }
+    .report-card:hover .arrow { transform: translateX(3px); }
+    footer { padding: 18px 0 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    footer p { margin: 0; }
+    @media (max-width: 700px) {
+      .header-inner, main, footer { width: min(100% - 28px, 560px); }
+      .header-inner { min-height: 54px; }
+      .reports { grid-template-columns: 1fr; gap: 12px; }
+      .report-card { min-height: 255px; }
     }
-    @media (max-width: 390px) {
-      body { font-size: 15px; }
-      .brand { font-size: 10px; }
-      .stat strong { font-size: 23px; }
-      .hero-note, .section-intro { font-size: 13px; }
-      .investor h3 { font-size: 18px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
     @media print {
-      body { background: #fff !important; color: #111 !important; }
-      .topbar, .skip, nav { display: none !important; }
-      main { max-width: none; padding: 0; }
-      .hero { background: #fff !important; color: #111 !important; border: 1px solid #aaa; }
-      .hero .kicker, .hero .lede, .hero .hero-note, h1 span { color: #333 !important; }
-      .investor, .route, .stat, .process-card, .sources-wrap { break-inside: avoid; box-shadow: none; }
-      .sources-wrap details:not([open]) > *:not(summary) { display: block !important; }
-      .sources-wrap summary { display: none; }
-      a { color: #111; }
+      body { background: #fff; }
+      .report-card { min-height: 0; break-inside: avoid; }
+      .report-card:hover { transform: none; }
+      footer { margin-top: 24px; }
     }
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to report</a>
-  <header class="topbar">
-    <div class="nav-wrap">
-      <div class="brand">Fin9 · Investor screen · 23 Sep 2026</div>
-      <nav aria-label="Report sections">
-        <a href="#readout">Readout</a>
-        <a href="#us-screen">U.S. firms</a>
-        <a href="#cross-border">Cross-border</a>
-        <a href="#gates">Decision gates</a>
-        <a href="#sources">Sources</a>
-      </nav>
+  <a class="skip" href="#reports">Skip to report selection</a>
+  <header>
+    <div class="header-inner">
+      <div class="brand">Investor intelligence</div>
+      <div class="count">Two separate reports</div>
     </div>
   </header>
-
-  <main id="main">
-    <section class="hero" id="readout" aria-labelledby="report-title">
-      <p class="kicker">Fin9 / Public-source investor intelligence / 23 September 2026</p>
-      <h1 id="report-title">ARTHI&lt;&gt;SATYAM-MITXCORNEL <span>VC LIST</span></h1>
-      <p class="lede">A source-checked investor screen for a U.S./New York company and founder with an India-based operating team.</p>
-      <p class="hero-note">Entity form, financing vehicle, fundraising stage, target amount, and founder-origin status remain unverified. This list is a diligence screen—not an approved outreach queue.</p>
+  <main>
+    <p class="eyebrow">MIT + Cornell / Report directory</p>
+    <h1>ARTHI&lt;&gt;SATYAM-MITXCORNEL VC LIST</h1>
+    <p class="intro">Choose a university report. MIT and Cornell open separately, with their own research, navigation, and evidence.</p>
+    <section id="reports" class="reports" aria-label="Select an investor report">
+      <a class="report-card" href="./mit.html" aria-label="Open the MIT investor-intelligence report">
+        <div class="card-meta"><span class="card-index">01 / MIT</span><span>Separate report</span></div>
+        <div class="rule" aria-hidden="true"></div>
+        <h2>MIT × AI Investor Intelligence</h2>
+        <p>MIT-connected firms and investor relationships, with the report’s evidence, investment fit, and provider-credit routes kept together.</p>
+        <span class="open">Open MIT report <span class="arrow" aria-hidden="true">→</span></span>
+      </a>
+      <a class="report-card" href="./cornell.html" aria-label="Open the Cornell investor-intelligence report">
+        <div class="card-meta"><span class="card-index">02 / CORNELL</span><span>Separate report</span></div>
+        <div class="rule" aria-hidden="true"></div>
+        <h2>Cornell × AI Investor Intelligence</h2>
+        <p>Cornell-connected AI investors, with firm, people, relationship, evidence, and next-action sections in their own report.</p>
+        <span class="open">Open Cornell report <span class="arrow" aria-hidden="true">→</span></span>
+      </a>
     </section>
-
-    <section class="stats" aria-label="Screen totals">
-      <div class="stat"><strong>13</strong><span>Unique firms / routes</span></div>
-      <div class="stat"><strong>08</strong><span>U.S. firms</span></div>
-      <div class="stat"><strong>05</strong><span>Cross-border routes</span></div>
-      <div class="stat"><strong>00</strong><span>Outreach sent</span></div>
-    </section>
-    <p class="context"><strong>Geography firewall.</strong> The company and founder are treated as U.S./New York; the operating team is India-based. Team location does not establish incorporation, the financing entity, or founder origin.</p>
-
-    <section class="section" aria-labelledby="first-read-title">
-      <div class="section-head">
-        <p class="eyebrow">01 / Decision readout</p>
-        <h2 id="first-read-title">Five routes have the clearest public evidence.</h2>
-        <p class="section-intro">The first five below show the strongest combination of financial-services workflow relevance, published stage/check terms, or direct agent/wealth portfolio proof. The order is a research judgment, not evidence of access or investor interest.</p>
-      </div>
-      <div class="process">
-        <div class="process-card">
-          <p><strong>Direct workflow overlap:</strong> FinTech Collective led the Seed round for AgentSmyth, a New York capital-markets agent platform, and led Valence’s wealth-management Seed round.<a class="cite" href="#source-2" aria-label="Source 2">[2]</a><a class="cite" href="#source-3" aria-label="Source 3">[3]</a></p>
-          <p><strong>Best published check/fit evidence:</strong> Contour publishes $500K–$2M initial checks; Work-Bench publishes $2M–$4M Seed checks; Fintech Ventures Fund publishes $250K–$2M first checks and wealthtech/banking focus.<a class="cite" href="#source-6" aria-label="Source 6">[6]</a><a class="cite" href="#source-8" aria-label="Source 8">[8]</a><a class="cite" href="#source-18" aria-label="Source 18">[18]</a></p>
-          <p><strong>Agent thesis evidence:</strong> Green Visor’s portfolio describes Uptiq as providing AI agents for traditional financial institutions.<a class="cite" href="#source-5" aria-label="Source 5">[5]</a></p>
-        </div>
-        <figure aria-labelledby="flow-title flow-desc">
-          <svg class="diagram" viewBox="0 0 520 400" role="img" aria-labelledby="flow-title flow-desc">
-            <title id="flow-title">Investor-screen verification path</title>
-            <desc id="flow-desc">Thirteen candidates are screened through official firm evidence, then fit and geography gates, before any outreach decision.</desc>
-            <defs><marker id="vc-arrow-head" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#56585e"></path></marker></defs>
-            <rect x="54" y="12" width="412" height="64" rx="10"></rect>
-            <text x="260" y="39" text-anchor="middle" class="title">13 firms / routes</text>
-            <text x="260" y="59" text-anchor="middle" class="sub">8 U.S. · 5 cross-border</text>
-            <path class="line" d="M260 76 V102" marker-end="url(#vc-arrow-head)"></path>
-            <rect x="54" y="110" width="412" height="64" rx="10"></rect>
-            <text x="260" y="137" text-anchor="middle" class="title">First-party evidence</text>
-            <text x="260" y="157" text-anchor="middle" class="sub">Team · thesis · terms · portfolio</text>
-            <path class="line" d="M260 174 V200" marker-end="url(#vc-arrow-head)"></path>
-            <rect x="54" y="208" width="412" height="64" rx="10"></rect>
-            <text x="260" y="235" text-anchor="middle" class="title">Fit and eligibility gates</text>
-            <text x="260" y="255" text-anchor="middle" class="sub">Stage · check size · geography · authority</text>
-            <path class="line" d="M260 272 V298" marker-end="url(#vc-arrow-head)"></path>
-            <rect x="54" y="306" width="412" height="72" rx="10"></rect>
-            <text x="260" y="335" text-anchor="middle" class="title">Diligence before outreach</text>
-            <text x="260" y="357" text-anchor="middle" class="sub">Confirm entity, target, origin and access</text>
-          </svg>
-        </figure>
-      </div>
-    </section>
-
-    <section class="section" id="us-screen" aria-labelledby="us-title">
-      <div class="section-head">
-        <p class="eyebrow">02 / U.S. investor lane</p>
-        <h2 id="us-title">U.S. firms</h2>
-        <p class="section-intro">Eight candidates. Check sizes below are firm-published initial or Seed check ranges where explicitly available; a company’s round size is not treated as an investor’s individual check.</p>
-      </div>
-      <div class="priority">
-        <article class="investor feature">
-          <h3>FinTech Collective</h3>
-          <div class="tag-row"><span class="tag primary">Diligence first</span><span class="tag">Direct agent + wealth evidence</span></div>
-          <dl class="facts">
-            <div><dt>Authority</dt><dd>Brooks Gibbins, co-founder and managing partner.<a class="cite" href="#source-1" aria-label="Source 1">[1]</a></dd></div>
-            <div><dt>Fit evidence</dt><dd>Led AgentSmyth’s $8.7M Seed round; AgentSmyth is described as a New York-based autonomous-agent platform for capital markets.<a class="cite" href="#source-2" aria-label="Source 2">[2]</a> Also led Valence’s Seed round in wealth management.<a class="cite" href="#source-3" aria-label="Source 3">[3]</a></dd></div>
-            <div><dt>Terms / gate</dt><dd>$8.7M is AgentSmyth’s total round, not FinTech Collective’s check. Firm check range and Fin9-specific eligibility are not verified.</dd></div>
-          </dl>
-        </article>
-        <article class="investor feature">
-          <h3>Green Visor Capital</h3>
-          <div class="tag-row"><span class="tag primary">Diligence first</span><span class="tag">Early-stage fintech</span></div>
-          <dl class="facts">
-            <div><dt>Authority</dt><dd>Simon Yoo, founder and managing partner.<a class="cite" href="#source-4" aria-label="Source 4">[4]</a></dd></div>
-            <div><dt>Fit evidence</dt><dd>The firm identifies its focus as early-stage fintech.<a class="cite" href="#source-4" aria-label="Source 4">[4]</a> Its portfolio describes Uptiq as providing AI agents for traditional financial institutions.<a class="cite" href="#source-5" aria-label="Source 5">[5]</a></dd></div>
-            <div><dt>Terms / gate</dt><dd>Check-size range and current lead mandate were not verified in the pages reviewed.</dd></div>
-          </dl>
-        </article>
-        <article class="investor feature">
-          <h3>Contour Venture Partners</h3>
-          <div class="tag-row"><span class="tag primary">Diligence first</span><span class="tag">Raise-size fit matters</span></div>
-          <dl class="facts">
-            <div><dt>Authority</dt><dd>Matt Gorin, managing partner.<a class="cite" href="#source-7" aria-label="Source 7">[7]</a></dd></div>
-            <div><dt>Fit evidence</dt><dd>Seed/early stage; stated sectors include financial services, enterprise software and vertical B2B software.<a class="cite" href="#source-6" aria-label="Source 6">[6]</a></dd></div>
-            <div><dt>Terms / gate</dt><dd>$500K–$2M initial investment; prefers to lead or co-lead and provide first institutional capital.<a class="cite" href="#source-6" aria-label="Source 6">[6]</a></dd></div>
-          </dl>
-        </article>
-        <article class="investor feature">
-          <h3>Work-Bench</h3>
-          <div class="tag-row"><span class="tag primary">Diligence first</span><span class="tag gate">Only if round can absorb $2M+</span></div>
-          <dl class="facts">
-            <div><dt>Authority</dt><dd>Jessica Lin and Jonathan Lehr, co-founders and general partners.<a class="cite" href="#source-9" aria-label="Source 9">[9]</a></dd></div>
-            <div><dt>Fit evidence</dt><dd>Portfolio company Artian is described as a multi-agent system for financial services.<a class="cite" href="#source-10" aria-label="Source 10">[10]</a></dd></div>
-            <div><dt>Terms / gate</dt><dd>Fund IV says it leads Seed rounds with $2M–$4M checks.<a class="cite" href="#source-8" aria-label="Source 8">[8]</a> Fit depends on Fin9’s actual round target.</dd></div>
-          </dl>
-        </article>
-        <article class="investor feature">
-          <h3>Fintech Ventures Fund</h3>
-          <div class="tag-row"><span class="tag primary">Diligence first</span><span class="tag">Terms published</span></div>
-          <dl class="facts">
-            <div><dt>Authority</dt><dd>No named current investment decision-maker was identified on the reviewed official page.</dd></div>
-            <div><dt>Fit evidence</dt><dd>Pre-Seed/Seed; B2B/B2B2C preference; North America; focus areas include wealthtech and banking/capital markets.<a class="cite" href="#source-18" aria-label="Source 18">[18]</a></dd></div>
-            <div><dt>Terms / gate</dt><dd>Typical first check $250K–$2M; the firm says it leads rounds. It prefers companies outside Silicon Valley.<a class="cite" href="#source-18" aria-label="Source 18">[18]</a></dd></div>
-          </dl>
-        </article>
-      </div>
-
-      <h3 class="subhead">Other U.S. routes · conditional</h3>
-      <div class="route-grid">
-        <article class="route">
-          <h3>Nyca Partners</h3>
-          <div class="tag-row"><span class="tag">Conditional</span></div>
-          <p><strong>Authority:</strong> Hans Morris, managing partner; Nyca says it is investing from its fifth fund.<a class="cite" href="#source-11" aria-label="Source 11">[11]</a></p>
-          <p><strong>Fit:</strong> Portfolio company Addition Wealth is described as an AI-native financial-guidance platform for financial institutions and employers.<a class="cite" href="#source-12" aria-label="Source 12">[12]</a></p>
-          <p class="gate-line"><strong>Open gate:</strong> Current stage/check size and fit for an India-based operating team were not verified.</p>
-        </article>
-        <article class="route">
-          <h3>Company Ventures</h3>
-          <div class="tag-row"><span class="tag">Conditional</span></div>
-          <p><strong>Authority:</strong> Matt Harrigan, co-founder and managing partner; Hunter Hillenmeyer, general partner.<a class="cite" href="#source-14" aria-label="Source 14">[14]</a></p>
-          <p><strong>Fit:</strong> First-check firm interested in generational AI companies at application, data-infrastructure and model-augmentation layers.<a class="cite" href="#source-13" aria-label="Source 13">[13]</a> Its portfolio describes Rogo as an AI platform for research and decision-making in financial services.<a class="cite" href="#source-15" aria-label="Source 15">[15]</a></p>
-          <p class="gate-line"><strong>Open gate:</strong> Check size and cross-border eligibility were not verified.</p>
-        </article>
-        <article class="route">
-          <h3>Commerce Ventures</h3>
-          <div class="tag-row"><span class="tag">Conditional</span><span class="tag gate">Typically does not lead</span></div>
-          <p><strong>Authority:</strong> Dan Rosen and Matt Nichols, partners.<a class="cite" href="#source-17" aria-label="Source 17">[17]</a></p>
-          <p><strong>Fit:</strong> Stated themes include retail, payments, banking and insurance; the firm considers Seed, Series A or later companies.<a class="cite" href="#source-16" aria-label="Source 16">[16]</a></p>
-          <p><strong>Terms / gate:</strong> Commerce says it typically does not lead rounds. Check size and Fin9-specific eligibility were not verified.<a class="cite" href="#source-16" aria-label="Source 16">[16]</a></p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="cross-border" aria-labelledby="cross-title">
-      <div class="section-head">
-        <p class="eyebrow">03 / Cross-border lane</p>
-        <h2 id="cross-title">Five routes with explicit geography or founder-origin gates.</h2>
-        <p class="section-intro">Do not infer investor eligibility from an India-based delivery team. Where a firm focuses on “building from India” or Indian-origin founders, Fin9’s fit remains unresolved until confirmed.</p>
-      </div>
-      <div class="route-grid">
-        <article class="route">
-          <h3>Arka Venture Labs</h3>
-          <div class="tag-row"><span class="tag gate">Geography gate</span></div>
-          <p><strong>Authority:</strong> Yashwanth Hemaraj, co-founder and partner.<a class="cite" href="#source-20" aria-label="Source 20">[20]</a></p>
-          <p><strong>Terms / thesis:</strong> First institutional checks up to $500K at pre-seed/seed for B2B entrepreneurs building from India.<a class="cite" href="#source-19" aria-label="Source 19">[19]</a></p>
-          <p class="gate-line"><strong>Gate:</strong> India-based team alone does not establish that the company is building from India.</p>
-        </article>
-        <article class="route">
-          <h3>Saka Ventures</h3>
-          <div class="tag-row"><span class="tag">Exploratory</span></div>
-          <p><strong>Authority:</strong> Pankaj Jain, managing partner.<a class="cite" href="#source-22" aria-label="Source 22">[22]</a></p>
-          <p><strong>Fit evidence:</strong> New York-based fund for startups targeting large global markets; portfolio includes Fincent, a business-finance operations product.<a class="cite" href="#source-21" aria-label="Source 21">[21]</a><a class="cite" href="#source-23" aria-label="Source 23">[23]</a></p>
-          <p><strong>Access:</strong> Public pitch form is available and asks for founder country.<a class="cite" href="#source-24" aria-label="Source 24">[24]</a></p>
-          <p class="gate-line"><strong>Open gate:</strong> Form availability is not an eligibility policy; stage/check terms were not verified.</p>
-        </article>
-        <article class="route">
-          <h3>z21 Ventures</h3>
-          <div class="tag-row"><span class="tag gate">Founder-origin gate</span></div>
-          <p><strong>Authority:</strong> Raj Shekhar Singh, co-founder and general partner.<a class="cite" href="#source-26" aria-label="Source 26">[26]</a></p>
-          <p><strong>Terms / thesis:</strong> Pre-seed/seed AI-as-a-service and deep tech for North American/global markets; the thesis focuses predominantly on Indian-origin founders while stating it invests in the best founders regardless of geography.<a class="cite" href="#source-25" aria-label="Source 25">[25]</a></p>
-          <p class="gate-line"><strong>Gate:</strong> Fin9 founder-origin status is unknown; India-based team does not establish it.</p>
-        </article>
-        <article class="route">
-          <h3>Operators Studio</h3>
-          <div class="tag-row"><span class="tag gate">Founder-origin gate</span></div>
-          <p><strong>Authority:</strong> Soumitra Sharma, solo GP.<a class="cite" href="#source-27" aria-label="Source 27">[27]</a></p>
-          <p><strong>Terms / thesis:</strong> U.S. and India; pre-seed/seed checks up to $300K; target described as “Global Indian” founders building for the world.<a class="cite" href="#source-27" aria-label="Source 27">[27]</a></p>
-          <p class="gate-line"><strong>Gate:</strong> Founder-origin status is unknown; team location alone does not establish fit.</p>
-        </article>
-        <article class="route">
-          <h3>Nexus Venture Partners</h3>
-          <div class="tag-row"><span class="tag">Conditional · U.S. AI/software</span></div>
-          <p><strong>Terms / thesis:</strong> Seed and Series A; stated U.S. focus on transformative AI/software and India focus on digital-native businesses.<a class="cite" href="#source-28" aria-label="Source 28">[28]</a></p>
-          <p><strong>Portfolio proof:</strong> The official site features financing updates for Freehand, an AI-agent company, and Daloopa, an AI-finance-data company.<a class="cite" href="#source-28" aria-label="Source 28">[28]</a></p>
-          <p><strong>Authority:</strong> The accessible team page did not establish a named current investment authority in the reviewed text.<a class="cite" href="#source-29" aria-label="Source 29">[29]</a></p>
-          <p class="gate-line"><strong>Open gate:</strong> Check size and policy for a U.S. company with an India-based operating team were not verified.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="gates" aria-labelledby="gates-title">
-      <div class="section-head">
-        <p class="eyebrow">04 / Before outreach</p>
-        <h2 id="gates-title">Close the four decision gates first.</h2>
-        <p class="section-intro">No investor has been contacted. This public screen does not assert access, eligibility, investment interest, or an existing relationship.</p>
-      </div>
-      <ol class="gates">
-        <li>Confirm Fin9’s fundraising stage, target amount, and intended financing entity.</li>
-        <li>Keep company/founder geography distinct from incorporation, financing vehicle, and founder origin.</li>
-        <li>For India-focused or Indian-origin theses, confirm criteria directly; team location is not proof of eligibility.</li>
-        <li>Recheck current partner authority, fund deployment, check size, and official founder-intake route before outreach.</li>
-      </ol>
-      <div class="method" aria-label="Research method and limits">
-        <div><strong>Primary sources</strong><p>Firm-owned team, thesis, portfolio, announcement, and pitch pages.</p></div>
-        <div><strong>Contact-minimized</strong><p>No personal emails, phone numbers, private notes, or Apollo-enriched data.</p></div>
-        <div><strong>Evidence boundary</strong><p>“Not verified” means the reviewed source set did not establish it; it does not mean the fact does not exist.</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="sources" aria-labelledby="sources-title">
-      <div class="section-head">
-        <p class="eyebrow">05 / Evidence appendix</p>
-        <h2 id="sources-title">First-party sources.</h2>
-        <p class="section-intro">Each numbered citation above opens its corresponding source record below. Quotes are short excerpts from the page as retrieved on 23 September 2026.</p>
-      </div>
-      <details class="sources-wrap" id="source-records">
-        <summary>Open 29 source records and excerpted evidence</summary>
-        <ol class="sources">
-          <li id="source-1"><span class="source-title">FinTech Collective — Team</span><a class="source-url" href="https://fintech.io/ourteam" target="_blank" rel="noopener noreferrer">https://fintech.io/ourteam</a><blockquote>“Brooks Gibbins Managing Partner”</blockquote></li>
-          <li id="source-2"><span class="source-title">FinTech Collective — AgentSmyth announcement</span><a class="source-url" href="https://fintech.io/articles/agentsmyth-raises-8-7m-to-bring-autonomous-agents-to-capital-markets" target="_blank" rel="noopener noreferrer">Official article</a><blockquote>“FinTech Collective’s lead investment in AgentSmyth”</blockquote></li>
-          <li id="source-3"><span class="source-title">FinTech Collective — Valence</span><a class="source-url" href="https://fintech.io/articles/valence-wealth-management-built-around-the-client" target="_blank" rel="noopener noreferrer">Official article</a><blockquote>“We led the company's Seed round”</blockquote></li>
-          <li id="source-4"><span class="source-title">Green Visor Capital — Team</span><a class="source-url" href="https://www.greenvisorcapital.com/team" target="_blank" rel="noopener noreferrer">https://www.greenvisorcapital.com/team</a><blockquote>“Our Focus: Early Stage FinTech”</blockquote></li>
-          <li id="source-5"><span class="source-title">Green Visor Capital — Portfolio</span><a class="source-url" href="https://www.greenvisorcapital.com/portfolio" target="_blank" rel="noopener noreferrer">https://www.greenvisorcapital.com/portfolio</a><blockquote>“Uptiq Provides AI Agents for Traditional Financial Institutions”</blockquote></li>
-          <li id="source-6"><span class="source-title">Contour Venture Partners — Investment criteria</span><a class="source-url" href="https://www.contourventures.com/investment-criteria" target="_blank" rel="noopener noreferrer">https://www.contourventures.com/investment-criteria</a><blockquote>“Contour invests between $500,000 and $2 million in the initial round.”</blockquote></li>
-          <li id="source-7"><span class="source-title">Contour Venture Partners — Team</span><a class="source-url" href="https://www.contourventures.com/team" target="_blank" rel="noopener noreferrer">https://www.contourventures.com/team</a><blockquote>“Matt Gorin Managing Partner”</blockquote></li>
-          <li id="source-8"><span class="source-title">Work-Bench — Fund IV announcement</span><a class="source-url" href="https://www.work-bench.com/post/announcing-work-bench-fund-iv-160m-to-back-seed-founders-with-bold-enterprise-visions" target="_blank" rel="noopener noreferrer">Official announcement</a><blockquote>“checks ranging from $2M - 4M.”</blockquote></li>
-          <li id="source-9"><span class="source-title">Work-Bench — Team</span><a class="source-url" href="https://www.work-bench.com/team" target="_blank" rel="noopener noreferrer">https://www.work-bench.com/team</a><blockquote>“jonathan lehr | co-founder &amp; general partner”</blockquote></li>
-          <li id="source-10"><span class="source-title">Work-Bench — Portfolio</span><a class="source-url" href="https://www.work-bench.com/portfolio" target="_blank" rel="noopener noreferrer">https://www.work-bench.com/portfolio</a><blockquote>“ARTIAN multi-agent system for financial services”</blockquote></li>
-          <li id="source-11"><span class="source-title">Nyca Partners — Team</span><a class="source-url" href="https://www.nyca.com/team" target="_blank" rel="noopener noreferrer">https://www.nyca.com/team</a><blockquote>“currently investing from its fifth fund.”</blockquote></li>
-          <li id="source-12"><span class="source-title">Nyca Partners — Portfolio</span><a class="source-url" href="https://www.nyca.com/companies" target="_blank" rel="noopener noreferrer">https://www.nyca.com/companies</a><blockquote>“Addition Wealth is the AI-native financial guidance platform that financial institutions and employers offer to their customers and employees.”</blockquote></li>
-          <li id="source-13"><span class="source-title">Company Ventures — Firm overview</span><a class="source-url" href="https://www.companyventures.com" target="_blank" rel="noopener noreferrer">https://www.companyventures.com</a><blockquote>“Company Ventures is a first check venture firm.”</blockquote></li>
-          <li id="source-14"><span class="source-title">Company Ventures — Team</span><a class="source-url" href="https://www.companyventures.com/team" target="_blank" rel="noopener noreferrer">https://www.companyventures.com/team</a><blockquote>“MATT HARRIGAN Co-founder &amp; Managing Partner”</blockquote></li>
-          <li id="source-15"><span class="source-title">Company Ventures — Portfolio</span><a class="source-url" href="https://www.companyventures.com/portfolio" target="_blank" rel="noopener noreferrer">https://www.companyventures.com/portfolio</a><blockquote>“Secure AI platform transforming research and decision-making across financial services.”</blockquote></li>
-          <li id="source-16"><span class="source-title">Commerce Ventures — Approach</span><a class="source-url" href="https://commerce.vc/approach/" target="_blank" rel="noopener noreferrer">https://commerce.vc/approach/</a><blockquote>“We typically do not lead rounds, but we always invest with conviction.”</blockquote></li>
-          <li id="source-17"><span class="source-title">Commerce Ventures — Team</span><a class="source-url" href="https://commerce.vc/team/" target="_blank" rel="noopener noreferrer">https://commerce.vc/team/</a><blockquote>“Dan Rosen Partner”</blockquote></li>
-          <li id="source-18"><span class="source-title">Fintech Ventures Fund — Firm overview</span><a class="source-url" href="https://www.fintechv.com/" target="_blank" rel="noopener noreferrer">https://www.fintechv.com/</a><blockquote>“$250,000 - $2,000,000”</blockquote></li>
-          <li id="source-19"><span class="source-title">Arka Venture Labs — Firm overview</span><a class="source-url" href="https://www.arka.vc/" target="_blank" rel="noopener noreferrer">https://www.arka.vc/</a><blockquote>“building from India to scale globally”</blockquote></li>
-          <li id="source-20"><span class="source-title">Arka Venture Labs — Team</span><a class="source-url" href="https://www.arka.vc/team" target="_blank" rel="noopener noreferrer">https://www.arka.vc/team</a><blockquote>“Yashwanth Hemaraj Co-Founder &amp; Partner”</blockquote></li>
-          <li id="source-21"><span class="source-title">Saka Ventures — Firm overview</span><a class="source-url" href="https://saka.vc/" target="_blank" rel="noopener noreferrer">https://saka.vc/</a><blockquote>“Saka Ventures is a New York based fund investing in startups that target large global markets”</blockquote></li>
-          <li id="source-22"><span class="source-title">Saka Ventures — Team</span><a class="source-url" href="https://saka.vc/team/pankaj-jain.html" target="_blank" rel="noopener noreferrer">https://saka.vc/team/pankaj-jain.html</a><blockquote>“Pankaj Jain Managing Partner”</blockquote></li>
-          <li id="source-23"><span class="source-title">Saka Ventures — Portfolio</span><a class="source-url" href="https://saka.vc/portfolio.html" target="_blank" rel="noopener noreferrer">https://saka.vc/portfolio.html</a><blockquote>“Fincent is a one stop shop for your company finances including invoicing, bookkeeping, reconciliations and much much more.”</blockquote></li>
-          <li id="source-24"><span class="source-title">Saka Ventures — Pitch form</span><a class="source-url" href="https://saka.vc/pitch.html" target="_blank" rel="noopener noreferrer">https://saka.vc/pitch.html</a><blockquote>“Fill out the form below to submit your pitch to us.”</blockquote></li>
-          <li id="source-25"><span class="source-title">z21 Ventures — Investment thesis</span><a class="source-url" href="https://z21.ventures/thesis" target="_blank" rel="noopener noreferrer">https://z21.ventures/thesis</a><blockquote>“founded predominantly by world-class Indian-origin entrepreneurs, whether based in India or across the global diaspora.”</blockquote></li>
-          <li id="source-26"><span class="source-title">z21 Ventures — Team</span><a class="source-url" href="https://z21.ventures/aboutus" target="_blank" rel="noopener noreferrer">https://z21.ventures/aboutus</a><blockquote>“Raj Shekhar Singh Co-founder &amp; General Partner”</blockquote></li>
-          <li id="source-27"><span class="source-title">Operators Studio — Firm overview</span><a class="source-url" href="https://operatorsstudio.com/" target="_blank" rel="noopener noreferrer">https://operatorsstudio.com/</a><blockquote>“We write up to $300K checks at the pre-seed &amp; seed stage”</blockquote></li>
-          <li id="source-28"><span class="source-title">Nexus Venture Partners — Firm overview</span><a class="source-url" href="https://www.nexusvp.com/in/about/" target="_blank" rel="noopener noreferrer">https://www.nexusvp.com/in/about/</a><blockquote>“We back extraordinary founders at seed and Series A”</blockquote></li>
-          <li id="source-29"><span class="source-title">Nexus Venture Partners — Team</span><a class="source-url" href="https://nexusvp.com/in/team/" target="_blank" rel="noopener noreferrer">https://nexusvp.com/in/team/</a><blockquote>“Team All Investments”</blockquote></li>
-        </ol>
-      </details>
-    </section>
-
-    <footer>
-      <p class="stamp">Research snapshot · 23 September 2026 · 29 primary-source records</p>
-      <p>Not a statement of investor commitment, legal eligibility, or fundraising advice. Reconfirm current roles, fund deployment, terms, and company-specific eligibility before outreach.</p>
-    </footer>
   </main>
+  <footer><p>Three-file folder: <strong>index.html</strong> plus the separate <strong>mit.html</strong> and <strong>cornell.html</strong> reports.</p></footer>
 </body>
 </html>
